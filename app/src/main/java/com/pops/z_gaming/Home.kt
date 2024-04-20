@@ -53,7 +53,7 @@ class Home : Fragment() {
                 )
             }
     }
-    fun onItemSelected(products: Products) {
+    private fun onItemSelected(products: Products) {
         Toast.makeText(requireContext(),products.model, Toast.LENGTH_SHORT).show()
     }
 
