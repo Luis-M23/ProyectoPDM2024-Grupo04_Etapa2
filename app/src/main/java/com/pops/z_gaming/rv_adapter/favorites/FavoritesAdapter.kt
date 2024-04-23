@@ -1,29 +1,24 @@
-package com.pops.z_gaming.rv_adapter
+package com.pops.z_gaming.rv_adapter.favorites
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pops.z_gaming.rv_adapter.ProductViewHolder
 import com.pops.z_gaming.Products
 import com.pops.z_gaming.R
+import com.pops.z_gaming.rv_adapter.product.ProductViewHolder
 
-class ProductAdapter(
+class FavoritesAdapter(
     private val productsList: List<Products>,
     private val context: Context,
     private val onClickListener:(Products)->Unit
-) : RecyclerView.Adapter<ProductViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+) : RecyclerView.Adapter<FavoriteViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        return ProductViewHolder(layoutInflater.inflate(R.layout.item_products, parent, false))
+        return FavoriteViewHolder(layoutInflater.inflate(R.layout.favorite_items, parent, false))
     }
-
-    //devuelve el tamanho del listado entero
     override fun getItemCount(): Int = productsList.size
-
-
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val item=productsList[position]
         holder.render(item,onClickListener)
     }

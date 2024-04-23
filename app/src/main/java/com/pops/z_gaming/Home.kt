@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pops.z_gaming.databinding.FragmentHomeBinding
-import com.pops.z_gaming.rv_adapter.ProductAdapter
+import com.pops.z_gaming.rv_adapter.product.ProductAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

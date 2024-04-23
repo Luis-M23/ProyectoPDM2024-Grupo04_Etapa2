@@ -2,12 +2,8 @@ package com.pops.z_gaming
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.pops.z_gaming.rv_adapter.ProductAdapter
 import com.pops.z_gaming.databinding.ActivityMainBinding
-import com.pops.z_gaming.databinding.FragmentHomeBinding
 
 class MainActivity : AppCompatActivity() {
 
