@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="iv_background">#D7D7D7</color>
+    <color name="cv_background">#313433</color>
+    <color name="app_background">#1E212B</color>
+    <color name="gray_components">#434343</color>
+    <color name="strokeColor_button">#989999</color>
+    <color name="text_color">#D11818</color>
+    <color name="toggleable_text_color">#0CADA3</color>
+    <color name="gray">#DCD6D6</color>
 </resources>
