@@ -17,9 +17,9 @@
             android:id="@+id/ivProduct"
             android:layout_width="82dp"
             android:layout_height="102dp"
+            android:background="@color/iv_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/iv_background"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvModel"
@@ -53,9 +53,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/editButton"
-            android:textColor="@color/white"
             tools:text="$360" />
 
 
@@ -68,8 +68,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/favorite_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-           />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

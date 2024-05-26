@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="377dp"
+        android:layout_height="102dp"
+        android:background="@drawable/border_top_botton">
+
+        <ImageView
+            android:id="@+id/imgPurchase"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_edittext3"
+            android:scaleType="centerInside"
+            android:src="@drawable/img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnDetails"
+            android:layout_width="50dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/rouded_edittext4"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtOrdenView"
+            android:layout_width="55dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="32dp"
+            android:text="Orden #"
+            android:textColor="#1B1E27"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/imgPurchase"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtnumOrden"
+            android:layout_width="75dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="32dp"
+            android:text="120500Z"
+            android:textColor="#1B1E27"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/btnDetails"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/txtOrdenView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtDateHour"
+            android:layout_width="145dp"
+            android:layout_height="19dp"
+            android:layout_marginBottom="24dp"
+            android:text="02/04/2024, 12:17:23 pm"
+            android:textColor="#818383"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.172"
+            app:layout_constraintStart_toEndOf="@+id/imgPurchase"
+            app:layout_constraintTop_toBottomOf="@+id/txtnumOrden"
+            app:layout_constraintVertical_bias="0.714" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
