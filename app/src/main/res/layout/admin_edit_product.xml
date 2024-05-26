@@ -18,17 +18,17 @@
             style="@style/Widget.AppCompat.TextView"
             android:layout_width="67dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_gravity="left"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/gray"
-            android:contentDescription="@string/return_login_description"
+            android:contentDescription="@string/btn_return_to_products"
             android:drawableLeft="@drawable/ic_btn_return_to"
             android:textColor="@color/black" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_product"
+            android:text="@string/edit_product"
             android:layout_gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -45,35 +45,12 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="5dp">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProductImages"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/image_selector"
-           >
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvProductImages"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginVertical="10dp"
-                android:visibility="gone"
-                />
-
-
-            <ImageView
-                android:id="@+id/ivImage"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:gravity="center"
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:src="@drawable/upload_image"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/image_desc" />
-
-        </LinearLayout>
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"/>
 
 
         <TextView
@@ -92,7 +69,7 @@
             app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtProductName"
+                android:id="@+id/txtNewProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -118,7 +95,7 @@
             app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtProductDescription"
+                android:id="@+id/txtNewProductDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -148,7 +125,7 @@
             app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtProductPrice"
+                android:id="@+id/txtNewProductPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -174,7 +151,7 @@
             app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtProductStock"
+                android:id="@+id/txtNewProductStock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -187,12 +164,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:gravity="center">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCancelAdd"
-                android:layout_width="130dp"
+                android:id="@+id/btnCancelEdit"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/white"
@@ -204,16 +181,17 @@
                 android:layout_marginEnd="20dp"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAddProduct"
-                android:layout_width="150dp"
+                android:id="@+id/btnSaveChangesEdit"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/app_background"
-                android:text="@string/btn_add"
+                android:text="@string/btn_save_cnanges"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 app:cornerRadius="8dp" />
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

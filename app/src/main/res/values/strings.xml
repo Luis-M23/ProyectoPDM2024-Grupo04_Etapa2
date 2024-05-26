@@ -39,4 +39,26 @@
     <string name="restore_password_subtitle_text">Ingrese su dirección de correo electrónico para solicitar un restablecimiento de contraseña.</string>
     <string name="restore_password_text">Reestablecer contraseña</string>
     <string name="return_login_description">Retornar a login</string>
+    <string name="image_desc">Descripcion de la imagen</string>
+
+    <!-- Edit product y add product -->
+    <string name="image">Imagen</string>
+    <string name="product_name">Nombre del producto</string>
+    <string name="product_description">Producto</string>
+    <string name="product_price">Precio</string>
+    <string name="product_stock">Cantidad disponible</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_add">Agregar</string>
+    <string name="add_product">Agregar producto</string>
+    <string name="edit_product">Editar producto</string>
+    <string name="btn_save_cnanges">Guardar cambios</string>
+    <string name="btn_return_to_products">Regresar a productos</string>
+
+    <!-- Order details -->
+    <string name="order">Orden</string>
+    <string name="item">Item</string>
+    <string name="start_time">Hora de inicio</string>
+    <string name="confirmed_order">Orden confirmada</string>
+    <string name="estimate_date">Fecha estimada de entrega:</string>
+
 </resources>

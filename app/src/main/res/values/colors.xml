@@ -10,4 +10,9 @@
     <color name="text_color">#D11818</color>
     <color name="toggleable_text_color">#0CADA3</color>
     <color name="gray">#DCD6D6</color>
+    <color name="image_selector">#E3E4E5</color>
+    <color name="images_group">#F0F6FD</color>
+    <color name="app_details_background">#F8FAFE</color>
+    <color name="order_confirmed">#159F33</color>
+
 </resources>
