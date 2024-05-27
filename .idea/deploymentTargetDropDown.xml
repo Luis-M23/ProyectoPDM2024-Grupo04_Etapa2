@@ -2,6 +2,18 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="AddProduct">
+        <State />
+      </entry>
+      <entry key="DetailsBuyFragment">
+        <State />
+      </entry>
+      <entry key="DetailsFragment">
+        <State />
+      </entry>
+      <entry key="EditProduct">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>

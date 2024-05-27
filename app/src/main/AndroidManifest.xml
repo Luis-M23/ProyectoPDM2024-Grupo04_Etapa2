@@ -14,17 +14,18 @@
         android:theme="@style/Theme.ZGaming"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            >
+         android:name=".PurchaseHistory"
+         android:exported="true"
+         android:windowSoftInputMode="adjustPan"
+         >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+         <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
 
-        </activity>
-    </application>
+    </activity>
+
+</application>
 
 </manifest>
