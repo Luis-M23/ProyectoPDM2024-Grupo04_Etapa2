@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ZGaming"
         tools:targetApi="31">
         <activity
-         android:name=".PurchaseHistory"
+         android:name=".UserManagement"
          android:exported="true"
          android:windowSoftInputMode="adjustPan"
          >

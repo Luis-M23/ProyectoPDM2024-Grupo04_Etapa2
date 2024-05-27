@@ -25,9 +25,9 @@ class UserManagement: AppCompatActivity() {
         rvUserManagement.layoutManager = LinearLayoutManager(this)
 
         // Agrega usuarios de ejemplo a la lista
-        userList.add(User("Kevin Grande", "Admin", R.drawable.profile_image_placeholder))
-        userList.add(User("John Doe", "User", R.drawable.profile_image_placeholder))
-        userList.add(User("Jane Smith", "Admin", R.drawable.profile_image_placeholder))
+        userList.add(User("Kevin Grande", "Admin", R.drawable.profile_image_placeholder, true))
+        userList.add(User("John Doe", "User", R.drawable.profile_image_placeholder, false))
+        userList.add(User("Jane Smith", "Admin", R.drawable.profile_image_placeholder, true))
 
         userAdapter = UserManagementAdapter(userList)
         rvUserManagement.adapter = userAdapter
