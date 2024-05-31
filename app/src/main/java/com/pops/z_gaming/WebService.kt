@@ -1,6 +1,10 @@
 package com.pops.z_gaming
 
 import com.google.gson.GsonBuilder
+import com.pops.z_gaming.AppConstantes.BASE_URL
+import com.pops.z_gaming.Model.User
+import com.pops.z_gaming.Model.UserLogin
+import com.pops.z_gaming.Model.Usuario
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,13 +14,35 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import java.net.URL
 
 //conexion  a la API de forma local
 object AppConstantes {
-    const val BASE_URL = "http://10.0.2.2:3000"
+    const val BASE_URL = "http://10.0.2.2:3000/api/"
+}
+
+object TokenManager {
+    private var token: String = "Sin token"
+
+    fun setToken(newToken: String) {
+        token = newToken
+    }
+
+    fun getToken(): String? {
+        return token
+    }
+
+    fun clearToken() {
+        token = "Sin token"
+    }
 }
 
 public interface WebService {
+
+    @POST("/api/login")
+    suspend fun iniciarSesion(
+        @Body user: UserLogin
+    ): Response<Usuario>
 
     //Obtener lista de productos
     @GET("/productos")
@@ -59,12 +85,18 @@ public interface WebService {
 }
 
 //configuración de retrofit
-object RetrofitClient {
-    val webService: WebService by lazy {
-        Retrofit.Builder()
-            .baseUrl(AppConstantes.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .build()
-            .create(WebService::class.java)
+class RetrofitClient {
+    /**
+     * Este método retorna la conexión con Retrofit
+     */
+    companion object{
+        @JvmStatic
+        fun getRetrofit() : Retrofit{
+            return Retrofit
+                .Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
     }
 }
