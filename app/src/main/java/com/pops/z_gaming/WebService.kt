@@ -21,19 +21,25 @@ object AppConstantes {
     const val BASE_URL = "http://10.0.2.2:3000/api/"
 }
 
-object TokenManager {
+object SessionManager {
     private var token: String = "Sin token"
+    private var user: Usuario? = null
 
-    fun setToken(newToken: String) {
-        token = newToken
+    fun setSession(newToken: String, newUser: Usuario){
+        this.token = newToken
+        this.user = newUser
     }
 
-    fun getToken(): String? {
+    fun getToken(): String {
         return token
     }
 
     fun clearToken() {
         token = "Sin token"
+    }
+
+    fun getUser(): Usuario? {
+        return this.user
     }
 }
 

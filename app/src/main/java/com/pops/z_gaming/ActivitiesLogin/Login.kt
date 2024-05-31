@@ -11,7 +11,7 @@ import com.pops.z_gaming.MainActivity
 import com.pops.z_gaming.Model.UserLogin
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.RetrofitClient
-import com.pops.z_gaming.TokenManager
+import com.pops.z_gaming.SessionManager
 import com.pops.z_gaming.WebService
 import com.pops.z_gaming.databinding.FragmentLoginBinding
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +35,7 @@ class Login : AppCompatActivity() {
         addListeners()
     }
 
-    fun login(){
+    fun login() {
 
         var user = binding.txtMail.text.toString()
         var pass = binding.txtPassword.text.toString()
@@ -53,22 +53,23 @@ class Login : AppCompatActivity() {
 
             val tokenTrue = extractToken(tk)
 
-            if (tokenTrue != null) {
-                TokenManager.setToken(tokenTrue)
+            if (tokenTrue != null && userReturned != null) {
+                SessionManager.setSession(tokenTrue, userReturned)
             }
 
             withContext(Dispatchers.Main) {
                 if (call.isSuccessful && userReturned != null) {
-                    Toast.makeText(applicationContext, "Logeado exitosamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Logeado exitosamente", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
-                    Toast.makeText(applicationContext, "Error al logearse", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Error al logearse", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             Log.i("LOGIN_T", "$userReturned")
             Log.i("LOGIN_T", "$tk")
-            Log.i("LOGIN_T", "TOKEN: $tokenTrue")
-
-            Log.i("LOGIN_T", "MAIN1, TOKEN ${TokenManager.getToken()}")
+            Log.i("LOGIN_T", "TOKEN: ${SessionManager.getToken()}")
+            Log.i("LOGIN_T", "USER: ${SessionManager.getUser()}")
         }
     }
 

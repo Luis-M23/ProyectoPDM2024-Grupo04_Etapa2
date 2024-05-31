@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.R
-import com.pops.z_gaming.TokenManager
 
 class ProductAdapter(
     private val productsList: List<Products>,
