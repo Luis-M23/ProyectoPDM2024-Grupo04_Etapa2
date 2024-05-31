@@ -1,13 +1,10 @@
-package com.pops.z_gaming
+package com.pops.z_gaming.ActivitiesUsers
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.pops.z_gaming.databinding.FragmentOrderDetailsBinding
 import com.pops.z_gaming.databinding.FragmentPurchaseHistoryBinding
-import com.pops.z_gaming.rv_adapter.orderDetails.ImageAdapter
 import com.pops.z_gaming.rv_adapter.purchaseHistory.PurchaseHistoryAdapter
 import java.text.SimpleDateFormat
 import java.util.Calendar

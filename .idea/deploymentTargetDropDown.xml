@@ -2,20 +2,21 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="AddProduct">
-        <State />
-      </entry>
-      <entry key="DetailsBuyFragment">
-        <State />
-      </entry>
-      <entry key="DetailsFragment">
-        <State />
-      </entry>
-      <entry key="EditProduct">
-        <State />
-      </entry>
-      <entry key="app">
-        <State />
+      <entry key="Z-gaming">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\HP\.android\avd\Pixel_API_24.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-31T15:30:25.070133100Z" />
+        </State>
       </entry>
     </value>
   </component>

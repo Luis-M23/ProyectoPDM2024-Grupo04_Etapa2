@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-import com.pops.z_gaming.Products
+import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.databinding.ItemProductsBinding
 
 class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pops.z_gaming.Model.ProductProvider
+import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.databinding.FragmentFavoritesBinding
 import com.pops.z_gaming.rv_adapter.favorites.FavoritesAdapter
 
@@ -57,6 +59,7 @@ class Favorites : Fragment() {
                 )
             }
     }
+
     private fun onItemSelected(products: Products) {
         Toast.makeText(requireContext(),products.model, Toast.LENGTH_SHORT).show()
     }

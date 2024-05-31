@@ -1,16 +1,14 @@
 package com.pops.z_gaming
 
 import android.os.Bundle
-import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
+import com.pops.z_gaming.Model.ProductProvider
+import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.databinding.AdminEditProductBinding
-import com.pops.z_gaming.databinding.FragmentOrderDetailsBinding
 import com.pops.z_gaming.rv_adapter.editProduct.EditProductAdapter
-import com.pops.z_gaming.rv_adapter.orderDetails.ImageAdapter
 
 class EditProduct : AppCompatActivity() {
     private lateinit var binding: AdminEditProductBinding

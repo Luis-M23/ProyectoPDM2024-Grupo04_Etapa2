@@ -1,6 +1,6 @@
-package com.pops.z_gaming
+package com.pops.z_gaming.Model
 
-import com.pops.z_gaming.Products
+import com.pops.z_gaming.Model.Products
 
 class ProductProvider {
     companion object {

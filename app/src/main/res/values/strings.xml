@@ -19,7 +19,6 @@
     <string name="join_us_text">Únete</string>
 
     <!-- signup -->
-
     <string name="txtName_hint">Nombre</string>
     <string name="btnReturnLogin_text">Iniciar sesión</string>
     <string name="txtUsername_hint">Nombre de usuario</string>

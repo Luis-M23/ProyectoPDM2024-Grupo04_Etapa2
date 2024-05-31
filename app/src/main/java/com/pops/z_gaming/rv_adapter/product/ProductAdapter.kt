@@ -4,8 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pops.z_gaming.rv_adapter.product.ProductViewHolder
-import com.pops.z_gaming.Products
+import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.R
 
 class ProductAdapter(

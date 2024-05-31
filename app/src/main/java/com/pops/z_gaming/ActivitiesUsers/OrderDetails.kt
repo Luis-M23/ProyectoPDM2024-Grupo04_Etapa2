@@ -1,20 +1,10 @@
-package com.pops.z_gaming
+package com.pops.z_gaming.ActivitiesUsers
 
-import android.R
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.pops.z_gaming.databinding.FragmentFavoritesBinding
+import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.databinding.FragmentOrderDetailsBinding
 import com.pops.z_gaming.rv_adapter.orderDetails.ImageAdapter
 import com.pops.z_gaming.rv_adapter.orderDetails.ProductAdapter
