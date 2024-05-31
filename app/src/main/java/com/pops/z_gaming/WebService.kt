@@ -13,14 +13,14 @@ import retrofit2.http.Path
 
 //conexion  a la API de forma local
 object AppConstantes {
-    const val BASE_URL = "http://10.0.2.2:3000"
+    const val BASE_URL = "http://10.0.2.2:3000/api/"
 }
 
-public interface WebService {
+interface WebService {
 
     //Obtener lista de productos
-    @GET("/productos")
-    suspend fun obtenerProductos(): Response<List<Producto>>
+    @GET("products")
+    suspend fun obtenerProductos(): List<Producto>
 
     //Obtener producto por ID
     @GET("/producto/{idProducto}")

@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pops.z_gaming.Model.Products
+import com.pops.z_gaming.Producto
 import com.pops.z_gaming.R
 
 class ProductAdapter(
-    private val productsList: List<Products>,
+    private val productsList: List<Producto>,
     private val context: Context,
-    private val onClickListener:(Products)->Unit
+    private val onClickListener:(Producto)->Unit
 ) : RecyclerView.Adapter<ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
