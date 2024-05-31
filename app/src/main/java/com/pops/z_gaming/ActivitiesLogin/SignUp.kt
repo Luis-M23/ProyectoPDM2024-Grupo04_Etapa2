@@ -1,9 +1,10 @@
-package com.pops.z_gaming
+package com.pops.z_gaming.ActivitiesLogin
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.pops.z_gaming.ActivitiesLogin.Login
 import com.pops.z_gaming.databinding.FragmentLoginBinding
 import com.pops.z_gaming.databinding.FragmentSignupBinding
 

@@ -1,4 +1,4 @@
-package com.pops.z_gaming
+package com.pops.z_gaming.ActivitiesLogin
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pops.z_gaming.ActivitiesLogin.CheckEmail
 import com.pops.z_gaming.databinding.FragmentSendEmailBinding
 
-class Send_email : AppCompatActivity() {
+class SendEmail : AppCompatActivity() {
 
     private lateinit var binding: FragmentSendEmailBinding
 
@@ -26,7 +26,7 @@ class Send_email : AppCompatActivity() {
         }
 
         binding.btnSend.setOnClickListener {
-            val intent = Intent(this, CheckEmail::class.java)
+            val intent = Intent(this, RestorePassword::class.java)
             startActivity(intent)
         }
 

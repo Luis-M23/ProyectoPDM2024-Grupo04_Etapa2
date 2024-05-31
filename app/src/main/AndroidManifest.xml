@@ -16,24 +16,31 @@
         android:theme="@style/Theme.ZGaming"
         tools:targetApi="31">
 
+        <!-- LOGIN -->
         <activity
-            android:name=".SignUp"
+            android:name=".ActivitiesLogin.SignUp"
             android:exported="false" />
 
         <activity
-            android:name=".Send_email"
+            android:name=".ActivitiesLogin.SendEmail"
             android:exported="false" />
 
         <activity
-            android:name=".check_email"
+            android:name=".ActivitiesLogin.CheckEmail"
+            android:exported="false" />
+
+        <activity
+            android:name=".ActivitiesLogin.RestorePassword"
             android:exported="false" />
 
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-        <!-- Principal-->
+
+        <!-- PRINCIPAL -->
+
         <activity
-            android:name=".Login"
+            android:name=".ActivitiesLogin.Login"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
 

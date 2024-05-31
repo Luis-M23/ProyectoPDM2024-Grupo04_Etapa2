@@ -1,4 +1,4 @@
-package com.pops.z_gaming
+package com.pops.z_gaming.ActivitiesUsers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
