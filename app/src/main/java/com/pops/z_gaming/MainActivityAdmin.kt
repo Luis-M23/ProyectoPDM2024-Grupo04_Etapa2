@@ -20,7 +20,7 @@ class MainActivityAdmin : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.adminHome -> replaceFragment(HomeAdmin())
-                R.id.adminManagementUser -> replaceFragment(Favorites())
+                R.id.adminManagementUser -> replaceFragment(UserManagerAdmin())
                 R.id.adminProfile -> replaceFragment(Profile())
 
                 else ->{

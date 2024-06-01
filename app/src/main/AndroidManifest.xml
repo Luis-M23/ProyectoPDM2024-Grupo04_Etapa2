@@ -41,6 +41,10 @@
         <activity
             android:name=".MainActivityAdmin"
             android:exported="false" />
+
+        <activity
+            android:name=".AddProduct"
+            android:exported="false" />
         <!-- PRINCIPAL -->
 
         <activity
