@@ -1,10 +1,13 @@
 package com.pops.z_gaming
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.pops.z_gaming.AppConstantes.BASE_URL
 import com.pops.z_gaming.Model.User
 import com.pops.z_gaming.Model.UserLogin
 import com.pops.z_gaming.Model.Usuario
+import com.pops.z_gaming.Retrofit.AuthInterceptor
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,6 +51,11 @@ public interface WebService {
     @POST("/api/login")
     suspend fun iniciarSesion(
         @Body user: UserLogin
+    ): Response<Usuario>
+
+    @GET("/api/profile/{id}")
+    suspend fun obtenerUsuario(
+        @Path("id") id: Int
     ): Response<Usuario>
 
     //Obtener lista de productos
@@ -98,8 +106,16 @@ class RetrofitClient {
     companion object{
         @JvmStatic
         fun getRetrofit() : Retrofit{
+
+            Log.i("LOGIN_T", "WEBSERVICE, TOKEN ${SessionManager.getToken()}")
+
+            val client = OkHttpClient.Builder()
+                .addInterceptor(AuthInterceptor(SessionManager.getToken()))
+                .build()
+
             return Retrofit
                 .Builder()
+                .client(client)
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
