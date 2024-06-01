@@ -48,12 +48,12 @@ object SessionManager {
 
 public interface WebService {
 
-    @POST("/api/login")
+    @POST("login")
     suspend fun iniciarSesion(
         @Body user: UserLogin
     ): Response<Usuario>
 
-    @GET("/api/profile/{id}")
+    @GET("profile/{id}")
     suspend fun obtenerUsuario(
         @Path("id") id: Int
     ): Response<Usuario>

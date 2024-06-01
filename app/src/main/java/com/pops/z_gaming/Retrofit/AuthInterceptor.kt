@@ -6,7 +6,7 @@ import okhttp3.Response
 data class AuthInterceptor(private val authToken: String) : Interceptor{
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-            .addHeader("Cookie", "token=$authToken")
+            .addHeader("Authorization", "Bearer $authToken")
             .build()
         return chain.proceed(request)
     }

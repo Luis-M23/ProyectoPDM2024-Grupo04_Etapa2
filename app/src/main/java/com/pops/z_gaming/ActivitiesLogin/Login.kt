@@ -49,9 +49,7 @@ class Login : AppCompatActivity() {
             val call = retrofit.create(WebService::class.java).iniciarSesion(usuario)
             val userReturned = call.body()
 
-            val tk = call.headers().get("Set-Cookie").toString()
-
-            val tokenTrue = extractToken(tk)
+            val tokenTrue = userReturned?.token
 
             if (tokenTrue != null && userReturned != null) {
                 SessionManager.setSession(tokenTrue, userReturned)
@@ -68,7 +66,6 @@ class Login : AppCompatActivity() {
                 }
             }
             Log.i("LOGIN_T", "$userReturned")
-            Log.i("LOGIN_T", "$tk")
             Log.i("LOGIN_T", "TOKEN: ${SessionManager.getToken()}")
             Log.i("LOGIN_T", "USER: ${SessionManager.getUser()}")
         }
