@@ -47,8 +47,9 @@ object SessionManager {
         return token
     }
 
-    fun clearToken() {
+    fun clearSession() {
         token = "Sin token"
+        user = null
     }
 
     fun getUser(): Usuario? {
@@ -58,12 +59,12 @@ object SessionManager {
 
 public interface WebService {
 
-    @POST("/api/login")
+    @POST("login")
     suspend fun iniciarSesion(
         @Body user: UserLogin
     ): Response<Usuario>
 
-    @GET("/api/profile/{id}")
+    @GET("profile/{id}")
     suspend fun obtenerUsuario(
         @Path("id") id: Int
     ): Response<Usuario>
@@ -74,8 +75,8 @@ public interface WebService {
     ): Response<UserInsertResponse>
 
     //Obtener lista de productos
-    @GET("/productos")
-    suspend fun obtenerProductos(): Response<List<Producto>>
+    @GET("products")
+    suspend fun obtenerProductos(): List<Producto>
 
     //Obtener producto por ID
     @GET("/producto/{idProducto}")

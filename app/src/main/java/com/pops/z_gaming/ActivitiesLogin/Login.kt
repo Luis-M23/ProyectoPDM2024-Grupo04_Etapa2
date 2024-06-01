@@ -25,7 +25,6 @@ import retrofit2.Retrofit
 class Login : AppCompatActivity() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var retrofit: Retrofit
-    private var isLoged: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +52,9 @@ class Login : AppCompatActivity() {
             }
 
             else -> {
+
+                SessionManager.clearSession()
+
                 var usuario = UserLogin(
                     user,
                     pass
@@ -62,9 +64,7 @@ class Login : AppCompatActivity() {
                     val call = retrofit.create(WebService::class.java).iniciarSesion(usuario)
                     val userReturned = call.body()
 
-                    val tk = call.headers().get("Set-Cookie").toString()
-
-                    val tokenTrue = extractToken(tk)
+                    val tokenTrue = userReturned?.token
 
                     if (tokenTrue != null && userReturned != null) {
                         SessionManager.setSession(tokenTrue, userReturned)
@@ -72,18 +72,27 @@ class Login : AppCompatActivity() {
 
                     withContext(Dispatchers.Main) {
                         if (call.isSuccessful && userReturned != null) {
-                            Toast.makeText(applicationContext, "Logeado exitosamente", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                applicationContext,
+                                "Logeado exitosamente",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
 
                             val intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
-                        }else{
-                            Toast.makeText(applicationContext, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT)
+
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "Error al logearse",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
+                            Log.i("LOGIN_T", "${call.message()}")
                         }
                     }
                     Log.i("LOGIN_T", "$userReturned")
-                    Log.i("LOGIN_T", "$tk")
                     Log.i("LOGIN_T", "TOKEN: ${SessionManager.getToken()}")
                     Log.i("LOGIN_T", "USER: ${SessionManager.getUser()}")
                 }

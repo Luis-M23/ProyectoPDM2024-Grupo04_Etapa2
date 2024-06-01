@@ -10,5 +10,6 @@ data class Usuario(
     var numeroTelefono: String,
     var nombreUsuario: String,
     var activo: Boolean?,
-    var idRol: Int
+    var idRol: Int,
+    var token: String
 )
