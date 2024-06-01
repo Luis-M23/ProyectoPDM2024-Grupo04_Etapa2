@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pops.z_gaming.ActivitiesLogin.SendEmail
 import com.pops.z_gaming.AppConstantes
 import com.pops.z_gaming.MainActivity
+import com.pops.z_gaming.MainActivityAdmin
 import com.pops.z_gaming.Model.UserLogin
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.RetrofitClient
@@ -79,8 +80,14 @@ class Login : AppCompatActivity() {
                             )
                                 .show()
 
-                            val intent = Intent(applicationContext, MainActivity::class.java)
-                            startActivity(intent)
+                            //Validar si el usuario
+                            if(userReturned.idRol == 1){
+                                val intent = Intent(applicationContext, MainActivity::class.java)
+                                startActivity(intent)
+                            }else{
+                                val intent = Intent(applicationContext, MainActivityAdmin::class.java)
+                                startActivity(intent)
+                            }
 
                         } else {
                             Toast.makeText(

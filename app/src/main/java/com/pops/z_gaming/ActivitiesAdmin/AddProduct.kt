@@ -30,6 +30,7 @@ class AddProduct: AppCompatActivity() {
                 for(uri in uriList){
                     //Enviar la imagen
                     var uriImage:String = uri.toString()
+                    Log.i("URI1", uriImage)
                     uriImagesList.add(uriImage)
                 }
                 //Log.i("TEST", "Se han seleccionado ${uriList.size} imágenes")

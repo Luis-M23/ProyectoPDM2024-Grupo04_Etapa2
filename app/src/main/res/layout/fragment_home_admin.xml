@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E212B"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeAdmin">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Z GAMING"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" >
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="340dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawableRight="@drawable/search"
+            android:hint="Search for products"
+            android:paddingHorizontal="10dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="16dp"
+            />
+
+        <ImageView
+            android:id="@+id/btnAddProduct"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            app:tint="@color/white"
+            android:src="@drawable/baseline_add_circle_24"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="375dp"
+        android:layout_marginTop="40dp"
+        android:layout_height="200dp"
+        android:src="@drawable/offer"
+        app:layout_constraintBottom_toTopOf="@+id/ContentRV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <LinearLayout
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/ContentRV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:weightSum="3"
+        tools:ignore="UnknownId">
+
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#434343"
+            android:text="All"
+            app:layout_constraintBottom_toTopOf="@+id/ContentRV"
+            app:layout_constraintEnd_toStartOf="@+id/btn2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="16dp"
+            app:strokeColor="#989999"
+            app:strokeWidth="1dp" />
+
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1E212B"
+            android:text="Computo"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/ContentRV"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:strokeColor="@color/white"
+            android:layout_weight="1"
+            app:strokeWidth="1dp"
+            android:layout_marginHorizontal="16dp"
+            tools:layout_editor_absoluteX="145dp" />
+
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1E212B"
+            android:layout_weight="1"
+            android:text="Gamer"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/ContentRV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:strokeColor="@color/white"
+            android:layout_marginHorizontal="16dp"
+            app:strokeWidth="1dp" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProduct"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="NotSibling" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
