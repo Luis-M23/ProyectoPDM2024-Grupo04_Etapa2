@@ -14,7 +14,7 @@
         android:layout_marginTop="-5dp"
         android:layout_marginBottom="4dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/user_profile_header" />
+        android:src="@drawable/profile_header_img" />
 
     <TextView
         android:id="@+id/textviewEmail"
