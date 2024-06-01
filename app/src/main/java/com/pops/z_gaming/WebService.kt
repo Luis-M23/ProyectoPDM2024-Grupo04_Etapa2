@@ -1,7 +1,5 @@
 package com.pops.z_gaming
-
 import android.util.Log
-import com.google.gson.GsonBuilder
 import com.pops.z_gaming.AppConstantes.BASE_URL
 import com.pops.z_gaming.Model.User
 import com.pops.z_gaming.Model.UserInsert
@@ -19,7 +17,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
-import java.net.URL
+
 
 //conexion  a la API de forma local
 object AppConstantes {
