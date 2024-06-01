@@ -1,0 +1,12 @@
+<!-- profile_image_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Color de fondo gris cuando no hay foto -->
+    <solid android:color="#E0E0E0" />
+
+    <!-- Contorno blanco -->
+    <stroke
+        android:width="4dp"
+        android:color="#FFFFFF" />
+</shape>

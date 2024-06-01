@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lnOrderDetails"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageViewLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/rectangle" />
+
+            <TextView
+                android:id="@+id/txtMonthYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/imageViewLeft"
+                android:text="Marzo 2024"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/lnOrderDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/relativeLayout"
+            app:layout_constraintStart_toStartOf="@id/relativeLayout"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/border_top_botton">
+
+            <ImageView
+                android:id="@+id/imgPurchase"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_edittext3"
+                android:scaleType="centerInside"
+                android:src="@drawable/img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtOrdenView"
+                        android:layout_width="55dp"
+                        android:layout_height="19dp"
+                        android:text="Orden #"
+                        android:textColor="#1B1E27"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/imgPurchase"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtnumOrden"
+                        android:layout_width="75dp"
+                        android:layout_height="19dp"
+                        android:text="120500Z"
+                        android:textColor="#1B1E27"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/btnDetails"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/txtOrdenView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtDateHour"
+                    android:layout_width="145dp"
+                    android:layout_height="19dp"
+                    android:text="02/04/2024, 12:17:23 pm"
+                    android:textColor="#818383"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.172"
+                    app:layout_constraintStart_toEndOf="@+id/imgPurchase"
+                    app:layout_constraintTop_toBottomOf="@+id/txtnumOrden"
+                    app:layout_constraintVertical_bias="0.714" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btnDetails"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="70dp"
+                android:background="@drawable/rouded_edittext4"
+                android:scaleType="centerInside"
+                android:src="@drawable/img_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

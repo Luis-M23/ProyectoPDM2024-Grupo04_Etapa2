@@ -1,15 +1,26 @@
 package com.pops.z_gaming
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.pops.z_gaming.Model.ProductProvider
+import com.pops.z_gaming.Model.Products
+import com.pops.z_gaming.databinding.FragmentHomeBinding
+import com.pops.z_gaming.rv_adapter.product.ProductAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
 
 /**
  * A simple [Fragment] subclass.
@@ -20,21 +31,62 @@ class Home : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding =FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fetchProducts()
+    }
+    private fun fetchProducts() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val retrofit= RetrofitClient.getRetrofit()
+                val productos = retrofit.create(WebService::class.java).obtenerProductos()
+                Log.d("Home", "Products received: $productos")
+                requireActivity().runOnUiThread {
+                    initRecyclerView(productos)
+                    Toast.makeText(
+                        requireContext(),
+                        "Products received:${productos.size} ",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Log.e("Home", "Error fetching products", e)
+                requireActivity().runOnUiThread {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error fetching products: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun initRecyclerView(producto:List<Producto>) {
+        //val manager=GridLayoutManager(this,2)//para mostrar mas de dos items
+        val manager= LinearLayoutManager(requireContext())
+        binding.rvProduct.layoutManager = manager
+        binding.rvProduct.adapter =
+            ProductAdapter(producto, requireContext()) { producto ->
+                onItemSelected(
+                    producto
+                )
+            }
+    }
+    private fun onItemSelected(producto: Producto) {
+        Toast.makeText(requireContext(),producto.nombreProducto, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
@@ -56,4 +108,6 @@ class Home : Fragment() {
                 }
             }
     }
+
+
 }

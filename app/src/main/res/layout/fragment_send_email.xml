@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="475dp"
+        android:layout_height="852dp"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReturnLogin"
+            style="@style/Widget.AppCompat.TextView"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:backgroundTint="@color/gray"
+            android:contentDescription="@string/return_login_description"
+            android:drawableLeft="@drawable/ic_btn_return_to"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/restore_password_text"
+            android:textAlignment="center"
+            android:textSize="32sp" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/reset_password_image_desc"
+            android:src="@drawable/password_reset_send_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/restore_password_subtitle_text"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="40dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_mail_text"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusBottomStart="15dp"
+                app:boxCornerRadiusTopEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp"
+                app:boxStrokeWidth="3dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:drawablePadding="8dp"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/confirmationTextView"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginBottom="10dp"-->
+            <!--                android:text="@string/confirmation_message_text"-->
+            <!--                android:textAlignment="center"-->
+            <!--                android:textColor="@color/toggleable_text_color"-->
+            <!--                android:textSize="12sp"-->
+            <!--                android:visibility="visible" />-->
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/app_background"
+                android:text="@string/btnSendEmail_text" />
+
+            <LinearLayout
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp">
+
+                <TextView
+                    style="@style/Widget.AppCompat.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvRemember_password" />
+
+                <TextView
+                    android:id="@+id/txtReturnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/tvLogin_text"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

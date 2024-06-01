@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,15 +14,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZGaming"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
+
+        <!-- LOGIN -->
+        <activity
+            android:name=".ActivitiesLogin.SignUp"
+            android:exported="false" />
+
+        <activity
+            android:name=".ActivitiesLogin.SendEmail"
+            android:exported="false" />
+
+        <activity
+            android:name=".ActivitiesLogin.CheckEmail"
+            android:exported="false" />
+
+        <activity
+            android:name=".ActivitiesLogin.RestorePassword"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="false" />
+
+        <!-- PRINCIPAL -->
+
+        <activity
+            android:name=".ActivitiesLogin.Login"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

@@ -1,14 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Profile">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile" />
+        android:layout_height="125dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginBottom="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile_header_img" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textviewEmail"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="392dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:text="E-mail"
+        android:textColor="#818383" />
+
+    <TextView
+        android:id="@+id/textviewNameUser"
+        android:layout_width="401dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="419dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:text="Name user"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/ivUserPhoto"
+        android:layout_width="100dp"
+        android:layout_height="105dp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/profile_image_border"
+        android:scaleType="fitXY"
+        android:src="@drawable/user_profile_img" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="258dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/lines_count" />
+
+    <TextView
+        android:id="@+id/textViewCompras1"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="243dp"
+        android:layout_marginBottom="332dp"
+        android:scaleType="centerCrop"
+        android:text="Compras realizadas"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewlikes1"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="244dp"
+        android:layout_marginBottom="276dp"
+        android:scaleType="centerCrop"
+        android:text="Cantidad de likes"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="173dp"
+        android:layout_marginBottom="279dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/likes" />
+
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="174dp"
+        android:layout_marginBottom="337dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/shopping_count" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="277dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:text="#" />
+
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="334dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:text="#" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="184dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="197dp"
+        android:layout_marginBottom="211dp"
+        android:scaleType="centerCrop"
+        android:text="Información"
+        android:textColor="#818383" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="367dp"
+        android:layout_marginBottom="134dp"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/full_name_profile" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="326dp"
+        android:layout_marginBottom="182dp"
+        android:text="Nombres"
+        android:textColor="#BFC2C2"
+        android:textSize="8sp" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="241dp"
+        app:srcCompat="@drawable/edit_profile" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="170dp"
+        app:srcCompat="@drawable/edit_profile" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="66dp"
+        android:ems="10"
+        android:inputType="phone"
+        android:text="+503 ####-####" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="366dp"
+        android:layout_marginBottom="66dp"
+        app:srcCompat="@drawable/cell_profile" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="295dp"
+        android:layout_marginBottom="112dp"
+        android:text="Número de celular"
+        android:textColor="#BFC2C2"
+        android:textSize="8sp" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="134dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Davis Michael" />
+
+</RelativeLayout>

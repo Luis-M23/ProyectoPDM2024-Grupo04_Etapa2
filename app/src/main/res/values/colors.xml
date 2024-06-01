@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="iv_background">#D7D7D7</color>
+    <color name="cv_background">#313433</color>
+    <color name="app_background">#1E212B</color>
+    <color name="gray_components">#434343</color>
+    <color name="strokeColor_button">#989999</color>
+    <color name="text_color">#D11818</color>
+    <color name="toggleable_text_color">#0CADA3</color>
+    <color name="gray">#DCD6D6</color>
+    <color name="image_selector">#E3E4E5</color>
+    <color name="images_group">#F0F6FD</color>
+    <color name="app_details_background">#F8FAFE</color>
+    <color name="order_confirmed">#159F33</color>
+
 </resources>

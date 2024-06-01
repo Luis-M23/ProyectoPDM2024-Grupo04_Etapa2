@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Hemos enviado un restablecimiento de contraseña a su dirección de correo electrónico" />
+        android:text="Hemos enviado un restablecimiento de contraseña a su dirección de correo electrónico" />
 
     <ImageView
         android:id="@+id/imageView"

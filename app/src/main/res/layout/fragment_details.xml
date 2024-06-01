@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--Primer layout-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#FFFFFF">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="382dp"
+            android:layout_marginBottom="11dp"
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_arrow_back" />
+    </RelativeLayout>
+
+
+    <!--Segundo layout-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#857E7E7F"
+        android:orientation="vertical"
+        tools:context=".DetailsFragment">
+
+
+        <ImageButton
+            android:id="@+id/roundedButton3"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="456dp"
+            android:background="@drawable/custom_button_b"
+            android:contentDescription="buy"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/car_buy" />
+
+        <ImageButton
+            android:id="@+id/roundedButton2"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="141dp"
+            android:layout_marginBottom="457dp"
+            android:background="@drawable/custom_button"
+            android:contentDescription="menos"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/subtraction" />
+
+        <ImageButton
+            android:id="@+id/roundedButton1"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="227dp"
+            android:layout_marginBottom="457dp"
+            android:background="@drawable/custom_button"
+            android:contentDescription="mas"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plus" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="457dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-11dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rectangule_details_footer" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="289dp"
+            android:layout_marginBottom="18dp"
+            android:text="DISPONIBLIDAD: "
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="364dp"
+            app:srcCompat="@drawable/line" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="65dp"
+            app:srcCompat="@drawable/line" />
+
+        <ImageButton
+            android:id="@+id/existenciasbtn"
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="136dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_existerncias" />
+
+    </RelativeLayout>
+
+</LinearLayout>
