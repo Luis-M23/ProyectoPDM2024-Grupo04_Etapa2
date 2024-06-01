@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#1E212B"
             android:layout_weight="1"
-            android:text="Redes"
+            android:text="Gamer"
             android:textSize="12dp"
             app:layout_constraintBottom_toTopOf="@+id/ContentRV"
             app:layout_constraintEnd_toEndOf="parent"

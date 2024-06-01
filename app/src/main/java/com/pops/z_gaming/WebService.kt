@@ -83,10 +83,10 @@ public interface WebService {
     ): Response<Producto>
 
     //Obtener productos por categoria
-    @GET("/productos/categoria/{idCategoria}")
+    @GET("products/category/{idCategoria}")
     suspend fun obtenerProductosPorCategoria(
         @Path("idCategoria") idCategoria: Int
-    ): Response<List<Producto>>
+    ): List<Producto>
 
     //Agregar producto
     @POST("/producto/add")

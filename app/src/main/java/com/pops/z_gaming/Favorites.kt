@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.databinding.FragmentFavoritesBinding
+import com.pops.z_gaming.rv_adapter.favorites.CarritoAdapter
 import com.pops.z_gaming.rv_adapter.favorites.FavoritesAdapter
 
 // TODO: Rename parameter arguments, choose names that match

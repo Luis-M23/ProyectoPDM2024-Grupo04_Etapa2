@@ -15,6 +15,7 @@ import com.pops.z_gaming.rv_adapter.product.ProductAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +47,18 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchProducts()
+
+        binding.btn1.setOnClickListener {
+            fetchProducts() // Fetch all products
+        }
+
+        binding.btn2.setOnClickListener {
+            fetchFilteredProducts(2) // Assuming 1 is the ID for "Computo" category
+        }
+
+        binding.btn3.setOnClickListener {
+            fetchFilteredProducts(1) // Assuming 2 is the ID for "Redes" category
+        }
     }
     private fun fetchProducts() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -67,6 +80,31 @@ class Home : Fragment() {
                     Toast.makeText(
                         requireContext(),
                         "Error fetching products: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+    private fun fetchFilteredProducts(idCategoria: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val retrofit = RetrofitClient.getRetrofit()
+                val productos = retrofit.create(WebService::class.java).obtenerProductosPorCategoria(idCategoria)
+                withContext(Dispatchers.Main) {
+                    initRecyclerView(productos)
+                    Toast.makeText(
+                        requireContext(),
+                        "Filtered products received: ${productos.size}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Log.e("Home", "Error fetching filtered products", e)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error fetching filtered products: ${e.message}",
                         Toast.LENGTH_LONG
                     ).show()
                 }
