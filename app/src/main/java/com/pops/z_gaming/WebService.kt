@@ -59,8 +59,8 @@ public interface WebService {
     ): Response<Usuario>
 
     //Obtener lista de productos
-    @GET("/productos")
-    suspend fun obtenerProductos(): Response<List<Producto>>
+    @GET("products")
+    suspend fun obtenerProductos(): List<Producto>
 
     //Obtener producto por ID
     @GET("/producto/{idProducto}")

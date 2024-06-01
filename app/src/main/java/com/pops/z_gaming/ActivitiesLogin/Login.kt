@@ -64,6 +64,7 @@ class Login : AppCompatActivity() {
                 } else {
                     Toast.makeText(applicationContext, "Error al logearse", Toast.LENGTH_SHORT)
                         .show()
+                    Log.i("LOGIN_T", "${call.message()}")
                 }
             }
             Log.i("LOGIN_T", "$userReturned")

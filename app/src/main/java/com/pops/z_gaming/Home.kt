@@ -12,6 +12,9 @@ import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.databinding.FragmentHomeBinding
 import com.pops.z_gaming.rv_adapter.product.ProductAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,21 +45,48 @@ class Home : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView()
+        fetchProducts()
     }
-    private fun initRecyclerView() {
+    private fun fetchProducts() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val retrofit= RetrofitClient.getRetrofit()
+                val productos = retrofit.create(WebService::class.java).obtenerProductos()
+                Log.d("Home", "Products received: $productos")
+                requireActivity().runOnUiThread {
+                    initRecyclerView(productos)
+                    Toast.makeText(
+                        requireContext(),
+                        "Products received:${productos.size} ",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Log.e("Home", "Error fetching products", e)
+                requireActivity().runOnUiThread {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error fetching products: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun initRecyclerView(producto:List<Producto>) {
         //val manager=GridLayoutManager(this,2)//para mostrar mas de dos items
         val manager= LinearLayoutManager(requireContext())
         binding.rvProduct.layoutManager = manager
         binding.rvProduct.adapter =
-            ProductAdapter(ProductProvider.productList, requireContext()) { model ->
+            ProductAdapter(producto, requireContext()) { producto ->
                 onItemSelected(
-                    model
+                    producto
                 )
             }
     }
-    private fun onItemSelected(products: Products) {
-        Toast.makeText(requireContext(),products.model, Toast.LENGTH_SHORT).show()
+    private fun onItemSelected(producto: Producto) {
+        Toast.makeText(requireContext(),producto.nombreProducto, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
