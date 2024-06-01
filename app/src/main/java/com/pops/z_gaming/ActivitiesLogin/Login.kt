@@ -25,6 +25,7 @@ import retrofit2.Retrofit
 class Login : AppCompatActivity() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var retrofit: Retrofit
+    private var isLoged: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,36 +41,53 @@ class Login : AppCompatActivity() {
         var user = binding.txtMail.text.toString()
         var pass = binding.txtPassword.text.toString()
 
-        var usuario = UserLogin(
-            user,
-            pass
-        )
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = retrofit.create(WebService::class.java).iniciarSesion(usuario)
-            val userReturned = call.body()
-
-            val tk = call.headers().get("Set-Cookie").toString()
-
-            val tokenTrue = extractToken(tk)
-
-            if (tokenTrue != null && userReturned != null) {
-                SessionManager.setSession(tokenTrue, userReturned)
+        when {
+            user.isEmpty() -> {
+                binding.txtMail.error = "Este campo es obligatorio"
+                binding.txtMail.requestFocus()
             }
 
-            withContext(Dispatchers.Main) {
-                if (call.isSuccessful && userReturned != null) {
-                    Toast.makeText(applicationContext, "Logeado exitosamente", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    Toast.makeText(applicationContext, "Error al logearse", Toast.LENGTH_SHORT)
-                        .show()
+            pass.isEmpty() -> {
+                binding.txtPassword.error = "Este campo es obligatorio"
+                binding.txtPassword.requestFocus()
+            }
+
+            else -> {
+                var usuario = UserLogin(
+                    user,
+                    pass
+                )
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val call = retrofit.create(WebService::class.java).iniciarSesion(usuario)
+                    val userReturned = call.body()
+
+                    val tk = call.headers().get("Set-Cookie").toString()
+
+                    val tokenTrue = extractToken(tk)
+
+                    if (tokenTrue != null && userReturned != null) {
+                        SessionManager.setSession(tokenTrue, userReturned)
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        if (call.isSuccessful && userReturned != null) {
+                            Toast.makeText(applicationContext, "Logeado exitosamente", Toast.LENGTH_SHORT)
+                                .show()
+
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            startActivity(intent)
+                        }else{
+                            Toast.makeText(applicationContext, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                    Log.i("LOGIN_T", "$userReturned")
+                    Log.i("LOGIN_T", "$tk")
+                    Log.i("LOGIN_T", "TOKEN: ${SessionManager.getToken()}")
+                    Log.i("LOGIN_T", "USER: ${SessionManager.getUser()}")
                 }
             }
-            Log.i("LOGIN_T", "$userReturned")
-            Log.i("LOGIN_T", "$tk")
-            Log.i("LOGIN_T", "TOKEN: ${SessionManager.getToken()}")
-            Log.i("LOGIN_T", "USER: ${SessionManager.getUser()}")
         }
     }
 
@@ -109,8 +127,6 @@ class Login : AppCompatActivity() {
         }
         binding.btnLogin.setOnClickListener {
             login()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 }

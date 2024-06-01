@@ -4,6 +4,8 @@ import android.util.Log
 import com.google.gson.GsonBuilder
 import com.pops.z_gaming.AppConstantes.BASE_URL
 import com.pops.z_gaming.Model.User
+import com.pops.z_gaming.Model.UserInsert
+import com.pops.z_gaming.Model.UserInsertResponse
 import com.pops.z_gaming.Model.UserLogin
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.Retrofit.AuthInterceptor
@@ -33,6 +35,14 @@ object SessionManager {
         this.user = newUser
     }
 
+    fun setSession(newToken: String){
+        this.token = newToken
+    }
+
+    fun setSession(newUser: Usuario){
+        this.user = newUser
+    }
+
     fun getToken(): String {
         return token
     }
@@ -57,6 +67,11 @@ public interface WebService {
     suspend fun obtenerUsuario(
         @Path("id") id: Int
     ): Response<Usuario>
+
+    @POST("/api/register")
+    suspend fun insertarUsuario(
+        @Body user: UserInsert
+    ): Response<UserInsertResponse>
 
     //Obtener lista de productos
     @GET("/productos")
