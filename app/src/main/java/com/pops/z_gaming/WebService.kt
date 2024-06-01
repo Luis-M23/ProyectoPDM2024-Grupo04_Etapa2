@@ -1,12 +1,9 @@
 package com.pops.z_gaming
 import android.util.Log
 import com.pops.z_gaming.AppConstantes.BASE_URL
-<<<<<<< Updated upstream
 import com.pops.z_gaming.Model.User
 import com.pops.z_gaming.Model.UserInsert
 import com.pops.z_gaming.Model.UserInsertResponse
-=======
->>>>>>> Stashed changes
 import com.pops.z_gaming.Model.UserLogin
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.Retrofit.AuthInterceptor
