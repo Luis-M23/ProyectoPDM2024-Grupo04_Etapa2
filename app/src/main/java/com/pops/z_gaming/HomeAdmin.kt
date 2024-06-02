@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pops.z_gaming.ActivitiesLogin.Login
+import com.pops.z_gaming.Model.InsertProduct
 import com.pops.z_gaming.databinding.FragmentHomeAdminBinding
 import com.pops.z_gaming.databinding.FragmentHomeBinding
 import com.pops.z_gaming.rv_adapter.product.ProductAdapter
@@ -136,12 +137,24 @@ class HomeAdmin : Fragment() {
         binding.rvProduct.adapter =
             ProductAdminAdapter(producto, requireContext(),
                 { producto -> onItemSelected(producto) },
-                { idProduct, idPositionInRecycler ->
-                    onDeleteProduct(
+                { idProduct, idPositionInRecycler -> onDeleteProduct(
                         idProduct,
                         idPositionInRecycler
                     )
+                },
+                {product, idProduct ->
+                    Log.i("LOGIN_T", "product $product")
+                    Log.i("LOGIN_T", "idproduct $idProduct")
+                    updateProduct(product, idProduct)
                 })
+    }
+
+    fun updateProduct(newProduct:InsertProduct, idProduct: Int){
+        val intent = Intent(requireContext(), EditProduct::class.java).apply {
+            putExtra("product", newProduct)
+            putExtra("id", idProduct)
+        }
+        startActivity(intent)
     }
 
     private fun showExitConfirmationDialog() {

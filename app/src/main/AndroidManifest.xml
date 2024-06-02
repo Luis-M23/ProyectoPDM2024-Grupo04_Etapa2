@@ -47,6 +47,10 @@
             android:name=".AddProduct"
             android:exported="false" />
 
+        <activity
+            android:name=".EditProduct"
+            android:exported="false" />
+
         <!-- PRINCIPAL -->
 
         <activity
