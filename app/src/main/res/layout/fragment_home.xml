@@ -21,7 +21,7 @@
 
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edFilter"
         android:layout_width="375dp"
         android:layout_height="40dp"
         android:layout_marginBottom="10dp"
@@ -30,6 +30,7 @@
         android:hint="Search for products"
         android:paddingHorizontal="10dp"
         android:singleLine="true"
+        android:maxLines="1"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16dp"
