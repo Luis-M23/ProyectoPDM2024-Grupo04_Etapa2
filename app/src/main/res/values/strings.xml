@@ -63,5 +63,6 @@
     <string name="estimate_date">Fecha estimada de entrega:</string>
     <string name="text_description">Descripción</string>
     <string name="product_category">Tipo de producto</string>
+    <string name="product_link">Link de la imagen en linea</string>
 
 </resources>

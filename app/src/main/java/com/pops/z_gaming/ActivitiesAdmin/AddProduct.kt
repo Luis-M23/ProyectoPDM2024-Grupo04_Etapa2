@@ -2,14 +2,24 @@ package com.pops.z_gaming
 
 import android.R
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.pops.z_gaming.Model.InsertProduct
 import com.pops.z_gaming.Model.UserLogin
 import com.pops.z_gaming.databinding.AdminAddBinding
@@ -18,21 +28,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import java.io.FileNotFoundException
 
 
 class AddProduct : AppCompatActivity() {
     private lateinit var binding: AdminAddBinding
     private lateinit var retrofit: Retrofit
-
     private var productImageUrl: String = ""
-
-    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            Log.i("LOGIN_T", "AdminAddProduct, URI: $uri")
-            productImageUrl = uri.toString()
-            binding.ivImage.setImageURI(uri)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +47,6 @@ class AddProduct : AppCompatActivity() {
     }
 
     fun initListeners() {
-        binding.ivImage.setOnClickListener {
-            //Log.i("TEST", "Clickeaste")
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-        }
 
         binding.btnAddProduct.setOnClickListener {
             insertProduct()
@@ -61,6 +59,45 @@ class AddProduct : AppCompatActivity() {
         binding.btnReturnLogin.setOnClickListener {
             returnToMainAdmin()
         }
+        binding.txtProductUrl.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                showImagePreview()
+            }
+        }
+    }
+
+    private fun showImagePreview() {
+        productImageUrl = (binding.txtProductUrl.text.toString())
+
+        Glide.with(binding.ivPreview).load(productImageUrl)
+            .addListener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.txtProductUrl.error = "la URL ingresada no es válida"
+                    binding.ivPreview.visibility = View.GONE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Toast.makeText(applicationContext, "La imagen es válida", Toast.LENGTH_SHORT)
+                        .show()
+                    binding.ivPreview.visibility = View.VISIBLE
+                    return false
+                }
+            })
+            .into(binding.ivPreview)
+
+        Log.i("LOGIN_T", "ADDPRODUCT, URL: $productImageUrl")
     }
 
     fun initSpinner() {
@@ -98,27 +135,19 @@ class AddProduct : AppCompatActivity() {
                 binding.txtProductPrice.requestFocus()
             }
 
-            productPrice.isEmpty() -> {
-                binding.txtProductPrice.error = "Este campo es obligatorio"
-                binding.txtProductPrice.requestFocus()
-            }
-
             productStock.isEmpty() -> {
                 binding.txtProductStock.error = "Este campo es obligatorio"
                 binding.txtProductStock.requestFocus()
             }
 
-            productStock.toIntOrNull() == null -> {
-                binding.txtProductStock.error = "Debe ser un número válido"
-                binding.txtProductStock.requestFocus()
+            productImageUrl.isEmpty() -> {
+                binding.txtProductUrl.error = "Debes agregar una URL de la imagen en linea"
+                binding.txtProductUrl.requestFocus()
             }
 
-            productImageUrl.isEmpty() -> {
-                Toast.makeText(
-                    applicationContext,
-                    "Agrega la imagen del producto",
-                    Toast.LENGTH_SHORT
-                ).show()
+            binding.ivPreview.visibility.equals(View.GONE) -> {
+                binding.txtProductUrl.error = "Arega una URL válida"
+                binding.txtProductUrl.requestFocus()
             }
 
             else -> {
@@ -133,6 +162,7 @@ class AddProduct : AppCompatActivity() {
                     categoryId.toInt(),
                     false
                 )
+                Log.i("LOGIN_T", "ADDPRODUCT, OBJECT: ${productToInsert}")
 
                 CoroutineScope(Dispatchers.IO).launch {
 
@@ -165,7 +195,7 @@ class AddProduct : AppCompatActivity() {
         }
     }
 
-    fun returnToMainAdmin(){
+    fun returnToMainAdmin() {
         clearAllEditText()
         val intent = Intent(applicationContext, MainActivityAdmin::class.java)
         startActivity(intent)

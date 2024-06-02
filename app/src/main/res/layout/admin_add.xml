@@ -45,25 +45,34 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="5dp">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/image_selector"
-            android:layout_marginBottom="5dp"
-            >
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxStrokeWidth="2dp">
 
-            <ImageView
-                android:id="@+id/ivImage"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:gravity="center"
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:src="@drawable/upload_image"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/image_desc" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtProductUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="8dp"
+                android:hint="@string/product_link"
+                android:inputType="text" />
 
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/ivPreview"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/upload_image" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
