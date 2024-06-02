@@ -12,12 +12,16 @@ class ProductAdminViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val binding = ItemAdminHomeBinding.bind(view)
 
 
-    fun render(productModel: Producto, onClickListener:(Producto)->Unit) {
+    fun render(productModel: Producto,
+               onClickListener:(Producto)->Unit,
+               onDeleteClickListener:(idProducto: Int, idPositionInRecycler: Int) -> Unit) {
         binding.tvModel.text = productModel.nombreProducto
         binding.tvName.text = productModel.descripcion
         binding.tvPrice.text = "$${productModel.precio}"
         Glide.with(binding.ivProduct.context).load(productModel.imagenProducto).into(binding.ivProduct)
         itemView.setOnClickListener {onClickListener(productModel)}
+        binding.deleteButton.setOnClickListener{
+            onDeleteClickListener(productModel.idProducto, bindingAdapterPosition)
+        }
     }
-
 }

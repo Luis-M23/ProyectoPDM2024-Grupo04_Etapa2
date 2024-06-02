@@ -11,7 +11,8 @@ import com.pops.z_gaming.rv_adapter.product.ProductViewHolder
 class ProductAdminAdapter(
     private val productsList: List<Producto>,
     private val context: Context,
-    private val onClickListener:(Producto)->Unit
+    private val onClickListener:(Producto)->Unit,
+    private val onDeleteClickListener:(idProducto: Int, idPositionInRecycler: Int) -> Unit
 ) : RecyclerView.Adapter<ProductAdminViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdminViewHolder {
@@ -25,6 +26,6 @@ class ProductAdminAdapter(
 
     override fun onBindViewHolder(holder: ProductAdminViewHolder, position: Int) {
         val item=productsList[position]
-        holder.render(item,onClickListener)
+        holder.render(item,onClickListener, onDeleteClickListener)
     }
 }

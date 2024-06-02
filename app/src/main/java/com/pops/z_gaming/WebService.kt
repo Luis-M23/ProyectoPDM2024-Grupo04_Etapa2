@@ -110,7 +110,7 @@ public interface WebService {
     @DELETE("/api/product/{idProducto}")
     suspend fun borrarProducto(
         @Path("idProducto") idProducto: Int
-    ): Response<String>
+    ): Response<Producto>
 }
 
 //configuración de retrofit
