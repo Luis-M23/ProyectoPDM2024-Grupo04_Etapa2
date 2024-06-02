@@ -61,5 +61,7 @@
     <string name="start_time">Hora de inicio</string>
     <string name="confirmed_order">Orden confirmada</string>
     <string name="estimate_date">Fecha estimada de entrega:</string>
+    <string name="text_description">Descripción</string>
+    <string name="product_category">Tipo de producto</string>
 
 </resources>

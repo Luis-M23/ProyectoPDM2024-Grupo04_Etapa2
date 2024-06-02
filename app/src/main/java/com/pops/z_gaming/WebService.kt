@@ -1,6 +1,7 @@
 package com.pops.z_gaming
 import android.util.Log
 import com.pops.z_gaming.AppConstantes.BASE_URL
+import com.pops.z_gaming.Model.InsertProduct
 import com.pops.z_gaming.Model.User
 import com.pops.z_gaming.Model.UserInsert
 import com.pops.z_gaming.Model.UserInsertResponse
@@ -89,10 +90,10 @@ public interface WebService {
     ): List<Producto>
 
     //Agregar producto
-    @POST("/producto/add")
+    @POST("/api/add-product")
     suspend fun agregarProducto(
-        @Body producto: Producto
-    ): Response<String>
+        @Body producto: InsertProduct
+    ): Response<Producto>
 
     //Actualizar producto
     @PUT("/producto/update/{idProducto}")
