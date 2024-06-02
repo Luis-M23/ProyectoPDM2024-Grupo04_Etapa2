@@ -10,7 +10,8 @@ import com.pops.z_gaming.R
 class ProductAdapter(
     private val productsList: List<Producto>,
     private val context: Context,
-    private val onClickListener:(Producto)->Unit
+    private val onClickListener:(Producto)->Unit,
+    private val onAddToCartClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -24,6 +25,6 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val item=productsList[position]
-        holder.render(item,onClickListener)
+        holder.render(item,onClickListener, onAddToCartClickListener)
     }
 }

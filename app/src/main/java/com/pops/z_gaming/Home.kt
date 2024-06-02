@@ -112,17 +112,81 @@ class Home : Fragment() {
         }
     }
 
-    private fun initRecyclerView(producto:List<Producto>) {
-        //val manager=GridLayoutManager(this,2)//para mostrar mas de dos items
-        val manager= LinearLayoutManager(requireContext())
+//    private fun initRecyclerView(producto:List<Producto>) {
+//        //val manager=GridLayoutManager(this,2)//para mostrar mas de dos items
+//        val manager= LinearLayoutManager(requireContext())
+//        binding.rvProduct.layoutManager = manager
+//        binding.rvProduct.adapter =
+//            ProductAdapter(producto, requireContext()) { producto ->
+//                onItemSelected(
+//                    producto
+//                )
+//            }
+//    }
+
+//    private fun initRecyclerView(productos: List<Producto>) {
+//        val manager = LinearLayoutManager(requireContext())
+//        binding.rvProduct.layoutManager = manager
+//        binding.rvProduct.adapter = ProductAdapter(productos, requireContext(),
+//            // Listener para clics en productos
+//            { producto ->
+//                // Aquí puedes manejar el clic en el producto, por ejemplo, mostrar el nombre del producto en un Toast
+//                Toast.makeText(requireContext(), producto.nombreProducto, Toast.LENGTH_SHORT).show()
+//            },
+//            // Listener para clics en el botón del carrito
+//            { productoId ->
+//                // Aquí puedes manejar la lógica para agregar el producto al carrito usando su ID
+//                Toast.makeText(requireContext(), "Producto agregado al carrito con ID: $productoId", Toast.LENGTH_SHORT).show()
+//            })
+//    }
+
+//    private fun initRecyclerView(productos: List<Producto>) {
+//        val adapter = ProductAdapter(productos, requireContext(),
+//            // Listener para clics en productos
+//            { producto ->
+//                onItemSelected(producto)
+//            },
+//            // Listener para clics en el botón del carrito
+//            { productoId ->
+//                onAddToCartClicked(productoId)
+//            })
+//
+//        val manager = LinearLayoutManager(requireContext())
+//        binding.rvProduct.layoutManager = manager
+//        binding.rvProduct.adapter = adapter
+//    }
+//
+//
+//    // En el fragmento o actividad
+//    private fun onAddToCartClicked(productoId: Int) {
+//        // El producto al carrito usando su ID
+//        Toast.makeText(requireContext(), "Producto agregado al carrito con ID: $productoId", Toast.LENGTH_SHORT).show()
+//    }
+
+    /*******************************************************************************************/
+    private fun initRecyclerView(productos: List<Producto>) {
+        val manager = LinearLayoutManager(requireContext())
         binding.rvProduct.layoutManager = manager
-        binding.rvProduct.adapter =
-            ProductAdapter(producto, requireContext()) { producto ->
-                onItemSelected(
-                    producto
-                )
-            }
+        binding.rvProduct.adapter = ProductAdapter(productos, requireContext(),
+            // Listener para clics en productos
+            { producto ->
+                onItemSelected(producto)
+            },
+            // Listener para clics en el botón del carrito
+            { productoId ->
+                onAddToCartClicked(productoId)
+            })
     }
+
+    private fun onAddToCartClicked(productoId: Int) {
+        // Agregar el producto al carrito usando su ID
+        Toast.makeText(requireContext(), "Producto agregado al carrito con ID: $productoId", Toast.LENGTH_SHORT).show()
+        // Mostrar el ID del producto en la consola de Android
+        Log.d("Home", "Producto agregado al carrito con ID: $productoId")
+    }
+
+    /*******************************************************************************************/
+
     private fun onItemSelected(producto: Producto) {
         Toast.makeText(requireContext(),producto.nombreProducto, Toast.LENGTH_SHORT).show()
     }
