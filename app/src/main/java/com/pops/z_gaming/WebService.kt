@@ -107,7 +107,7 @@ public interface WebService {
     suspend fun obtenerProductosFavoritos(): Response<List<Producto>>
 
     //Eliminar producto por ID
-    @DELETE("/producto/delete/{idProducto}")
+    @DELETE("/api/product/{idProducto}")
     suspend fun borrarProducto(
         @Path("idProducto") idProducto: Int
     ): Response<String>
