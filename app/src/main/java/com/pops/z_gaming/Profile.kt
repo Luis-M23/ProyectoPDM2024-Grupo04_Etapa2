@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.pops.z_gaming.databinding.FragmentHomeBinding
 import com.pops.z_gaming.databinding.FragmentProfileBinding
 import kotlinx.coroutines.CoroutineScope
@@ -48,6 +51,9 @@ class Profile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUserData()
+        binding.menuIcon.setOnClickListener {
+            showExitConfirmationDialog()
+        }
     }
 
     private fun setUserData() {
@@ -81,6 +87,37 @@ class Profile : Fragment() {
         }
     }
 
+    private fun showExitConfirmationDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.fragment_dialog_exit_confirmation, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        val titleTextView = dialogView.findViewById<TextView>(R.id.dialog_title)
+        titleTextView.text = "Salir"
+
+        val messageTextView = dialogView.findViewById<TextView>(R.id.dialog_message)
+        messageTextView.text = "¿Estás seguro de que quieres salir de Z-Gamming 🤔?"
+
+        val cancelButton = dialogView.findViewById<Button>(R.id.btn_cancel)
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val exitButton = dialogView.findViewById<Button>(R.id.btn_exit)
+        exitButton.setOnClickListener {
+            requireActivity().finish()
+        }
+
+        dialog.show()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -101,3 +138,4 @@ class Profile : Fragment() {
             }
     }
 }
+

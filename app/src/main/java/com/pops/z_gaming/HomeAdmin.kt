@@ -2,13 +2,21 @@ package com.pops.z_gaming
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pops.z_gaming.databinding.FragmentHomeAdminBinding
 import com.pops.z_gaming.databinding.FragmentHomeBinding
+import com.pops.z_gaming.rv_adapter.product.ProductAdapter
+import com.pops.z_gaming.rv_adapter.productAdmin.ProductAdminAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,10 +52,86 @@ class HomeAdmin : Fragment() {
                 requireContext(),
                 "Agregar un producto",
                 Toast.LENGTH_LONG).show()
-
             val intent = Intent(requireContext(), AddProduct::class.java)
             startActivity(intent)
         }
+        binding.btn1.setOnClickListener {
+            fetchProducts() // Fetch all products
+        }
+
+        binding.btn2.setOnClickListener {
+            fetchFilteredProducts(2) // Assuming 1 is the ID for "Computo" category
+        }
+
+        binding.btn3.setOnClickListener {
+            fetchFilteredProducts(1) // Assuming 2 is the ID for "Redes" category
+        }
+    }
+    private fun fetchProducts() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val retrofit= RetrofitClient.getRetrofit()
+                val productos = retrofit.create(WebService::class.java).obtenerProductos()
+                Log.d("Home", "Products received: $productos")
+                requireActivity().runOnUiThread {
+                    initRecyclerView(productos)
+                    Toast.makeText(
+                        requireContext(),
+                        "Products received:${productos.size} ",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Log.e("Home", "Error fetching products", e)
+                requireActivity().runOnUiThread {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error fetching products: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+    private fun fetchFilteredProducts(idCategoria: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val retrofit = RetrofitClient.getRetrofit()
+                val productos = retrofit.create(WebService::class.java).obtenerProductosPorCategoria(idCategoria)
+                withContext(Dispatchers.Main) {
+                    initRecyclerView(productos)
+                    Toast.makeText(
+                        requireContext(),
+                        "Filtered products received: ${productos.size}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Log.e("Home", "Error fetching filtered products", e)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error fetching filtered products: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun initRecyclerView(producto:List<Producto>) {
+        //val manager=GridLayoutManager(this,2)//para mostrar mas de dos items
+        val manager= LinearLayoutManager(requireContext())
+        binding.rvProduct.layoutManager = manager
+        binding.rvProduct.adapter =
+            ProductAdminAdapter(producto, requireContext()) { producto ->
+                onItemSelected(
+                    producto
+                )
+            }
+    }
+    private fun onItemSelected(producto: Producto) {
+        Toast.makeText(requireContext(),producto.nombreProducto, Toast.LENGTH_SHORT).show()
     }
     companion object {
         /**
