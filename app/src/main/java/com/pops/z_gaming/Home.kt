@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.databinding.FragmentHomeBinding
@@ -114,15 +115,51 @@ class Home : Fragment() {
 
     private fun initRecyclerView(producto:List<Producto>) {
         //val manager=GridLayoutManager(this,2)//para mostrar mas de dos items
-        val manager= LinearLayoutManager(requireContext())
+        val manager = LinearLayoutManager(requireContext())
         binding.rvProduct.layoutManager = manager
-        binding.rvProduct.adapter =
-            ProductAdapter(producto, requireContext()) { producto ->
-                onItemSelected(
-                    producto
-                )
-            }
+        binding.rvProduct.adapter = ProductAdapter(
+            producto,
+            requireContext(),
+            { producto -> onItemSelected(producto) },
+            { id -> onAddToFavorite(id) }
+        )
     }
+
+    private fun onAddToFavorite(id: Int) {
+        Log.i("Estas en favorito", "mensaje")
+
+        val user = SessionManager.getUser()
+        if (user != null) {
+            val favoriteRequest = FavoriteRequest(idUsuario = user.idUsuario, idProducto = id, idUsuarioProducto = id)
+
+            // Usamos Retrofit para hacer la llamada a la API
+            val retrofit = RetrofitClient.getRetrofit()
+            val webService = retrofit.create(WebService::class.java)
+
+            // Realizamos la llamada en un CoroutineScope para manejo de corrutinas
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = webService.addToFavorites(favoriteRequest)
+                    if (response.isSuccessful) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Failed to add to favorites", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun onItemSelected(producto: Producto) {
         Toast.makeText(requireContext(),producto.nombreProducto, Toast.LENGTH_SHORT).show()
     }
@@ -146,6 +183,4 @@ class Home : Fragment() {
                 }
             }
     }
-
-
 }
