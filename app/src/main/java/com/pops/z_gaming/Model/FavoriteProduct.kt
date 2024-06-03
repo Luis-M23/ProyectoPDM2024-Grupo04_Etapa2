@@ -3,11 +3,20 @@ package com.pops.z_gaming.Model
 import android.provider.ContactsContract.CommonDataKinds.Photo
 
 data class FavoriteProduct (
-    val idUsuarioProducto: Int,
-    val idUsuario: Int,
-    val idProducto: Int,
-    val name: String,
-    val description: String,
-    val price: Double,
-    val photo: String
+    val idUsuarioProducto: Long,
+    val idUsuario: Long,
+    val idProducto: Long?,
+    val producto: Producto
+)
+
+data class Producto(
+    val idProducto: Long,
+    val nombreProducto: String,
+    val descripcion: String,
+    val precio: String,
+    val stock: Long,
+    val imagenProducto: String,
+    val isFavorito: Boolean,
+    val isAddedInCart: Any?,
+    val idCategoria: Long
 )
