@@ -217,7 +217,7 @@ class EditProduct : AppCompatActivity() {
         binding.txtProductPrice.setText(price)
 
         binding.txtProductStock.setText(product?.stock.toString())
-        product?.idCategoria?.let { binding.productCategorySpinner.setSelection(it) }
+        product?.idCategoria?.minus(1)?.let { binding.productCategorySpinner.setSelection(it) }
     }
 
     fun initSpinner() {
