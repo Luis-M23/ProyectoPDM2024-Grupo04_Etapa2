@@ -8,9 +8,10 @@ import com.pops.z_gaming.Producto
 import com.pops.z_gaming.R
 
 class ProductAdapter(
-//    private val productsList: List<Producto>,
+   // private val productsList: List<Producto>,
     private val context: Context,
-    private val onClickListener:(Producto)->Unit
+    private val onClickListener:(Producto)->Unit,
+    private val addOnFavoriteClickListener: (id: Int) -> Unit
 ) : RecyclerView.Adapter<ProductViewHolder>() {
 
     private var productsList: List<Producto> = listOf()
@@ -26,7 +27,7 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val item=productsList[position]
-        holder.render(item,onClickListener)
+        holder.render(item,onClickListener, addOnFavoriteClickListener)
     }
     fun setProducts(products: List<Producto>) {
         this.productsList = products
@@ -36,7 +37,7 @@ class ProductAdapter(
 
     fun filter(query: String) {
         val filteredList = if (query.isEmpty()) {
-            productsListFull
+            productsList
         } else {
             productsListFull.filter {
                 it.nombreProducto.contains(query, ignoreCase = true) ||

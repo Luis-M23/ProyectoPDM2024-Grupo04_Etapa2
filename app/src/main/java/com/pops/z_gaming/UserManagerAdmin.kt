@@ -62,6 +62,11 @@ class UserManagerAdmin : Fragment() {
         //Listeners
         Log.i("LOGIN_T", "USERMANAGEMENT, Antes Initrecycler")
         getAllUsers()
+
+        binding.returnIcon2.setOnClickListener{
+            val intent = Intent(requireContext(), MainActivityAdmin::class.java)
+            startActivity(intent)
+        }
     }
 
     fun initRecyclerView() {

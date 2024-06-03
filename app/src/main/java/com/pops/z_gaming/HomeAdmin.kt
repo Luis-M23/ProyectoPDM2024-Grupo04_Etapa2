@@ -1,5 +1,6 @@
 package com.pops.z_gaming
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,10 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pops.z_gaming.ActivitiesLogin.Login
 import com.pops.z_gaming.Model.InsertProduct
@@ -41,6 +45,7 @@ class HomeAdmin : Fragment() {
     private var _binding: FragmentHomeAdminBinding? = null
     private val binding get() = _binding!!
     private lateinit var retrofit: Retrofit
+    private lateinit var adapter: ProductAdminAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +58,9 @@ class HomeAdmin : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+        setupSearchFilter()
+        fetchProducts()
 
         binding.btnAddProduct.setOnClickListener {
             Toast.makeText(
@@ -81,23 +89,14 @@ class HomeAdmin : Fragment() {
             try {
                 val retrofit = RetrofitClient.getRetrofit()
                 val productos = retrofit.create(WebService::class.java).obtenerProductos()
-                Log.d("Home", "Products received: $productos")
-                requireActivity().runOnUiThread {
-                    initRecyclerView(productos)
-                    Toast.makeText(
-                        requireContext(),
-                        "Products received:${productos.size} ",
-                        Toast.LENGTH_LONG
-                    ).show()
+                withContext(Dispatchers.Main) {
+                    adapter.setProducts(productos)
+                    Toast.makeText(requireContext(), "Products received: ${productos.size}", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 Log.e("Home", "Error fetching products", e)
-                requireActivity().runOnUiThread {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error fetching products: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Error fetching products: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -107,46 +106,56 @@ class HomeAdmin : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val retrofit = RetrofitClient.getRetrofit()
-                val productos = retrofit.create(WebService::class.java)
-                    .obtenerProductosPorCategoria(idCategoria)
+                val productos = retrofit.create(WebService::class.java).obtenerProductosPorCategoria(idCategoria)
                 withContext(Dispatchers.Main) {
-                    initRecyclerView(productos)
-                    Toast.makeText(
-                        requireContext(),
-                        "Filtered products received: ${productos.size}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    adapter.setProducts(productos)
+                    Toast.makeText(requireContext(), "Filtered products received: ${productos.size}", Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 Log.e("Home", "Error fetching filtered products", e)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error fetching filtered products: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(requireContext(), "Error fetching filtered products: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
+    private fun setupSearchFilter() {
+        binding.edFilter.addTextChangedListener { editable ->
+            val query = editable?.toString() ?: ""
+            adapter.filter(query)
+        }
 
-    private fun initRecyclerView(producto: List<Producto>) {
-        //val manager=GridLayoutManager(this,2)//para mostrar mas de dos items
-        val manager = LinearLayoutManager(requireContext())
-        binding.rvProduct.layoutManager = manager
-        binding.rvProduct.adapter =
-            ProductAdminAdapter(producto, requireContext(),
+        binding.edFilter.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+                true
+            } else {
+                false
+            }
+        }
+    }
+    private fun hideKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+
+    private fun initRecyclerView() {
+        adapter =
+            ProductAdminAdapter(requireContext(),
                 { producto -> onItemSelected(producto) },
                 { idProduct, idPositionInRecycler -> onDeleteProduct(
-                        idProduct,
-                        idPositionInRecycler
-                    )
+                    idProduct,
+                    idPositionInRecycler
+                )
                 },
-                {product, idProduct ->
+                { product, idProduct -> updateProduct(product, idProduct)
                     Log.i("LOGIN_T", "product $product")
                     Log.i("LOGIN_T", "idproduct $idProduct")
-                    updateProduct(product, idProduct)
                 })
+         binding.rvProduct.layoutManager=LinearLayoutManager(requireContext())
+        binding.rvProduct.adapter = adapter
+
     }
 
     fun updateProduct(newProduct:InsertProduct, idProduct: Int){
@@ -155,32 +164,6 @@ class HomeAdmin : Fragment() {
             putExtra("id", idProduct)
         }
         startActivity(intent)
-    }
-
-    private fun showExitConfirmationDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.fragment_dialog_exit_confirmation, null)
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .create()
-
-        val titleTextView = dialogView.findViewById<TextView>(R.id.dialog_title)
-        titleTextView.text = "Salir"
-
-        val messageTextView = dialogView.findViewById<TextView>(R.id.dialog_message)
-        messageTextView.text = "¿Estás seguro de que quieres salir de Z-Gamming 🤔?"
-
-        val cancelButton = dialogView.findViewById<Button>(R.id.btn_cancel)
-        cancelButton.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        val exitButton = dialogView.findViewById<Button>(R.id.btn_exit)
-        exitButton.setOnClickListener {
-            val intent = Intent(requireContext(), Login::class.java)
-            startActivity(intent)
-        }
-
-        dialog.show()
     }
 
     private fun onDeleteProduct(idProduct: Int, idPositionInRecycler: Int) {

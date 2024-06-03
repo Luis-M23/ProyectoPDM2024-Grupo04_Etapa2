@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.databinding.FragmentHomeBinding
@@ -49,10 +50,8 @@ class Home : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecyclerView()
         setupSearchFilter()
-
         fetchProducts()
 
         binding.btn1.setOnClickListener {
@@ -69,11 +68,49 @@ class Home : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = ProductAdapter(requireContext()) { producto ->
-            onItemSelected(producto)
-        }
+        adapter =  ProductAdapter(
+
+            requireContext(),
+            { producto -> onItemSelected(producto) },
+            { id -> onAddToFavorite(id) }
+        )
         binding.rvProduct.layoutManager = LinearLayoutManager(requireContext())
         binding.rvProduct.adapter = adapter
+    }
+
+    private fun onAddToFavorite(id: Int) {
+        Log.i("Estas en favorito", "mensaje")
+
+        val user = SessionManager.getUser()
+        if (user != null) {
+            val favoriteRequest = FavoriteRequest(idUsuario = user.idUsuario, idProducto = id, idUsuarioProducto = id)
+
+            // Usamos Retrofit para hacer la llamada a la API
+            val retrofit = RetrofitClient.getRetrofit()
+            val webService = retrofit.create(WebService::class.java)
+
+            // Realizamos la llamada en un CoroutineScope para manejo de corrutinas
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = webService.addToFavorites(favoriteRequest)
+                    if (response.isSuccessful) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Failed to add to favorites", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupSearchFilter() {
@@ -100,21 +137,30 @@ class Home : Fragment() {
     private fun fetchProducts() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val retrofit = RetrofitClient.getRetrofit()
+                val retrofit= RetrofitClient.getRetrofit()
                 val productos = retrofit.create(WebService::class.java).obtenerProductos()
-                withContext(Dispatchers.Main) {
+                Log.d("Home", "Products received: $productos")
+                requireActivity().runOnUiThread {
                     adapter.setProducts(productos)
-                    Toast.makeText(requireContext(), "Products received: ${productos.size}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Products received:${productos.size} ",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
+
             } catch (e: Exception) {
                 Log.e("Home", "Error fetching products", e)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Error fetching products: ${e.message}", Toast.LENGTH_LONG).show()
+                requireActivity().runOnUiThread {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error fetching products: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
     }
-
     private fun fetchFilteredProducts(idCategoria: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -122,12 +168,20 @@ class Home : Fragment() {
                 val productos = retrofit.create(WebService::class.java).obtenerProductosPorCategoria(idCategoria)
                 withContext(Dispatchers.Main) {
                     adapter.setProducts(productos)
-                    Toast.makeText(requireContext(), "Filtered products received: ${productos.size}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Filtered products received: ${productos.size}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             } catch (e: Exception) {
                 Log.e("Home", "Error fetching filtered products", e)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Error fetching filtered products: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error fetching filtered products: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
