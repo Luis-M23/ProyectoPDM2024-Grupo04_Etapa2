@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.0" >
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/edFilter"
             android:layout_width="340dp"
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"

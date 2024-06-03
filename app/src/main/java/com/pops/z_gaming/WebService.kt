@@ -98,11 +98,11 @@ public interface WebService {
     ): Response<Producto>
 
     //Actualizar producto
-    @PUT("/producto/update/{idProducto}")
+    @PUT("/api/product/{idProducto}")
     suspend fun actualizarProducto(
         @Path("idProducto") idProducto: Int,
-        @Body producto: Producto
-    ): Response<String>
+        @Body producto: InsertProduct
+    ): Response<Producto>
 
     //Obtener productos favoritos
     @GET("/productos/favoritos")

@@ -3,6 +3,7 @@ package com.pops.z_gaming.rv_adapter.productAdmin
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.pops.z_gaming.Model.InsertProduct
 import com.pops.z_gaming.Producto
 import com.pops.z_gaming.databinding.ItemAdminHomeBinding
 import com.pops.z_gaming.databinding.ItemProductsBinding
@@ -14,7 +15,9 @@ class ProductAdminViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(productModel: Producto,
                onClickListener:(Producto)->Unit,
-               onDeleteClickListener:(idProducto: Int, idPositionInRecycler: Int) -> Unit) {
+               onDeleteClickListener:(idProducto: Int, idPositionInRecycler: Int) -> Unit,
+               onUpdateClickListener:(product: InsertProduct, idProduct:Int) -> Unit) {
+
         binding.tvModel.text = productModel.nombreProducto
         binding.tvName.text = productModel.descripcion
         binding.tvPrice.text = "$${productModel.precio}"
@@ -23,5 +26,21 @@ class ProductAdminViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.deleteButton.setOnClickListener{
             onDeleteClickListener(productModel.idProducto, bindingAdapterPosition)
         }
+
+        val updateProduct = InsertProduct(
+            nombreProducto = productModel.nombreProducto,
+            descripcion = productModel.descripcion,
+            precio = productModel.precio,
+            stock = productModel.stock,
+            imagenProducto = productModel.imagenProducto,
+            isFavorito = productModel.isFavorito,
+            idCategoria = productModel.idCategoria,
+            isAddedInCart = false
+        )
+
+        binding.editButton.setOnClickListener{
+            onUpdateClickListener(updateProduct, productModel.idProducto)
+        }
+
     }
 }
