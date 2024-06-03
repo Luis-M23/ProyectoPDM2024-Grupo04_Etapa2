@@ -52,7 +52,6 @@ class Home : Fragment() {
 
         initRecyclerView()
         setupSearchFilter()
-
         fetchProducts()
 
         binding.btn1.setOnClickListener {
