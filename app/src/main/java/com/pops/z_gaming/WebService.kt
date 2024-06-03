@@ -21,6 +21,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 //conexion  a la API de forma local
@@ -129,11 +130,10 @@ public interface WebService {
     ): Response<FavoriteResponse>
 
 
-    //listar favoritos
-    @GET("/favorites/get-favorites")
+    @GET("/api/favorites/{idUsuario}")
     suspend fun obtenerFavoritosPorUsuario(
-        @Body request: FavoriteRequest
-    ): Response<List<FavoriteProduct>>?
+        @Path("idUsuario") idUsuario: Long
+    ): Response<List<FavoriteProduct>>
 }
 
 //configuración de retrofit

@@ -2,12 +2,26 @@ package com.pops.z_gaming.Model
 
 import android.provider.ContactsContract.CommonDataKinds.Photo
 
-data class FavoriteProduct (
-    val idUsuarioProducto: Int,  // El ID de la relación entre usuario y producto
-    val idUsuario: Int,          // El ID del usuario relacionado
-    val idProducto: Int,         // El ID del producto relacionado
-    val name: String,            // El nombre del producto
-    val description: String,     // La descripción del producto
-    val price: Double,           // El precio del producto
-    val photo: String            // La URL de la foto del producto
+//data class FavoriteProduct (
+////    val usuarioProducto: UsuarioProducto,
+////    val producto: Producto
+//)
+
+data class FavoriteProduct(
+    val idUsuarioProducto: Long,
+    val idUsuario: Long,
+    val idProducto: Long?,
+    val producto: Producto
+)
+
+data class Producto(
+    val idProducto: Long,
+    val nombreProducto: String,
+    val descripcion: String,
+    val precio: String,
+    val stock: Long,
+    val imagenProducto: String,
+    val isFavorito: Boolean,
+    val isAddedInCart: Any?,
+    val idCategoria: Long
 )
