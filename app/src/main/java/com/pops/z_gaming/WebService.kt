@@ -68,6 +68,10 @@ public interface WebService {
         @Path("id") id: Int
     ): Response<Usuario>
 
+    @GET("/api/profiles")
+    suspend fun obtenerTodosLosUsuarios(
+    ): Response<List<Usuario>>
+
     @POST("/api/register")
     suspend fun insertarUsuario(
         @Body user: UserInsert

@@ -2,13 +2,24 @@ package com.pops.z_gaming
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.pops.z_gaming.Model.User
+import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.databinding.FragmentHomeAdminBinding
 import com.pops.z_gaming.databinding.FragmentUserManagementBinding
+import com.pops.z_gaming.rv_adapter.userManagement.UserManagementAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,21 +39,70 @@ class UserManagerAdmin : Fragment() {
     private var _binding: FragmentUserManagementBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var rvUserManagement: RecyclerView
+    private lateinit var userAdapter: UserManagementAdapter
+
+    private lateinit var retrofit: Retrofit
+    private var userList = mutableListOf<Usuario>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
-        _binding =FragmentUserManagementBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding = FragmentUserManagementBinding.inflate(inflater, container, false)
 
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //Listeners
+        Log.i("LOGIN_T", "USERMANAGEMENT, Antes Initrecycler")
+        getAllUsers()
+    }
+
+    fun initRecyclerView() {
+        Log.i("LOGIN_T", "USERMANAGEMENT, Initrecycler")
+        rvUserManagement = binding.rvUserManagement
+        rvUserManagement.layoutManager = LinearLayoutManager(requireContext())
+
+        userAdapter = UserManagementAdapter(userList)
+        rvUserManagement.adapter = userAdapter
+    }
+
+    fun getAllUsers() {
+
+        userList = mutableListOf()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            retrofit = RetrofitClient.getRetrofit()
+
+            val call = retrofit.create(WebService::class.java).obtenerTodosLosUsuarios()
+            val users = call.body() //Obtener el cuerpo del GET
+
+            Log.i("LOGIN_T", "USERMANAGEMENT, Respuesta: ")
+
+            if (call.isSuccessful) {
+
+                withContext(Dispatchers.Main) {
+                    if (users != null) {
+                        userList.clear() //Limpiar el arreglo
+                        for (p in users) {
+                            Log.i("LOGIN_T", "User: $p ")
+                            userList.add(p)
+                        }
+                    }
+                    Log.i("LOGIN_T", "UserList: $userList")
+                    initRecyclerView()
+                }
+            } else {
+                Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT)
+                    .show();
+            }
+        }
     }
 
     companion object {
