@@ -51,6 +51,9 @@
             android:name=".EditProduct"
             android:exported="false" />
 
+        <activity
+            android:name=".ActivitiesUsers.ProductDetails"
+            android:exported="false" />
         <!-- PRINCIPAL -->
 
         <activity

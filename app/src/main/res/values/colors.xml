@@ -14,5 +14,6 @@
     <color name="images_group">#F0F6FD</color>
     <color name="app_details_background">#F8FAFE</color>
     <color name="order_confirmed">#159F33</color>
+    <color name="green">#159F33</color>
 
 </resources>

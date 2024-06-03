@@ -1,6 +1,7 @@
 package com.pops.z_gaming
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pops.z_gaming.ActivitiesUsers.ProductDetails
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
@@ -189,6 +191,14 @@ class Home : Fragment() {
 
     private fun onItemSelected(producto: Producto) {
         Toast.makeText(requireContext(), producto.nombreProducto, Toast.LENGTH_SHORT).show()
+
+        //Mostrar los detalles desde un rol de User
+
+        val intent = Intent(requireContext(), ProductDetails::class.java).apply {
+            putExtra("product", producto)
+        }
+
+        startActivity(intent)
     }
 
     companion object {

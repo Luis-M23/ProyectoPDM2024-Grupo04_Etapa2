@@ -92,7 +92,7 @@ class Login : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Error al logearse",
+                                "Usuario o contraseñas incorrectos.",
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
