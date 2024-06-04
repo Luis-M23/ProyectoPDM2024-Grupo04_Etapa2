@@ -11,7 +11,7 @@ class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view)  {
 
     val binding = FavoriteItemsBinding.bind(view)
 
-    fun render(favoriteProduct: FavoriteProduct, onClickListener: (FavoriteProduct) -> Unit) {
+    fun render(favoriteProduct: FavoriteProduct, onClickListener: (FavoriteProduct) -> Unit, onDeleteClickListener: (Int, FavoriteProduct) -> Unit) {
         val producto = favoriteProduct.producto
 
         // Imprimir el objeto FavoriteProduct para verificar si está llegando nulo
@@ -42,5 +42,8 @@ class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view)  {
 
         // Establecer el listener de clic en el elemento de la lista
         itemView.setOnClickListener { onClickListener(favoriteProduct) }
+
+        // Establecer el listener de clic en el botón de eliminar
+        binding.editButton.setOnClickListener { onDeleteClickListener(adapterPosition, favoriteProduct) }
     }
 }

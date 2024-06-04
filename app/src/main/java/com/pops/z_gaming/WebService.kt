@@ -148,6 +148,12 @@ public interface WebService {
     suspend fun obtenerFavoritosPorUsuario(
         @Path("idUsuario") idUsuario: Long
     ): Response<List<FavoriteProduct>>
+
+    //borrar favoritos por ID
+    @DELETE("/api/favorite/{id}")
+    suspend fun removeFromFavorites(
+        @Path("id") id: Int
+    ): Response<FavoriteProduct>
 }
 
 //configuración de retrofit
