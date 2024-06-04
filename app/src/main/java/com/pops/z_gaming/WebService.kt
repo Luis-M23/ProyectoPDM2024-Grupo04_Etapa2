@@ -1,6 +1,7 @@
 package com.pops.z_gaming
 import android.util.Log
 import com.pops.z_gaming.AppConstantes.BASE_URL
+import com.pops.z_gaming.Model.DeletedItemResponse
 import com.pops.z_gaming.Model.FavoriteProduct
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.FavoriteResponse
@@ -133,6 +134,13 @@ public interface WebService {
     suspend fun obtenerFavoritosPorUsuario(
         @Path("idUsuario") idUsuario: Long
     ): Response<List<FavoriteProduct>>
+
+    //borrar favoritos por ID
+    @DELETE("/api/favorites/{id}")
+    suspend fun removeFromFavorites(
+        @Path("id") id: Int
+    ): Response<FavoriteProduct>
+
 }
 
 //configuración de retrofit

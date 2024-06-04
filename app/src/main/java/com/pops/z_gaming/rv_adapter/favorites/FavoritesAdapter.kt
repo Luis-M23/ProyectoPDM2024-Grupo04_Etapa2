@@ -10,8 +10,10 @@ import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.R
 
 class FavoritesAdapter(
-    private var favoriteProducts: List<FavoriteProduct>,
-    private val onClickListener: (FavoriteProduct) -> Unit
+    private var favoriteProducts: MutableList<FavoriteProduct>,
+    private val onClickListener: (FavoriteProduct) -> Unit,
+    private val onDeleteClickListener: ((Int, FavoriteProduct) -> Unit)? = null
+
 ) : RecyclerView.Adapter<FavoriteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -20,13 +22,17 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val item = favoriteProducts[position]
-        holder.render(item, onClickListener)
+        holder.render(item, onClickListener, onDeleteClickListener ?: { _, _ -> })
     }
 
     override fun getItemCount(): Int = favoriteProducts.size
 
-    fun updateData(newFavoriteProducts: List<FavoriteProduct>) {
+    fun updateData(newFavoriteProducts: MutableList<FavoriteProduct>) {
         favoriteProducts = newFavoriteProducts
         notifyDataSetChanged()
+    }
+    fun removeItem(position: Int) {
+        favoriteProducts.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

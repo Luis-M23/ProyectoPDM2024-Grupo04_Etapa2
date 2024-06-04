@@ -37,7 +37,9 @@ class Favorites : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var favoriteAdapter: FavoritesAdapter
-    private var favoriteProductsList: List<FavoriteProduct> = mutableListOf()
+//    private var favoriteProductsList: List<FavoriteProduct> = mutableListOf()
+    private var favoriteProductsList: MutableList<FavoriteProduct> = mutableListOf()
+
 
     private val apiService: WebService by lazy {
         RetrofitClient.getRetrofit().create(WebService::class.java)
@@ -66,15 +68,32 @@ class Favorites : Fragment() {
     }
 
 
+//    private fun initRecyclerView() {
+//        favoriteAdapter = FavoritesAdapter(favoriteProductsList) { favoriteProduct ->
+//            // Handle click event here
+//        }
+//        binding.favorites.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            adapter = favoriteAdapter
+//        }
+//    }
+
     private fun initRecyclerView() {
-        favoriteAdapter = FavoritesAdapter(favoriteProductsList) { favoriteProduct ->
-            // Handle click event here
-        }
+        favoriteAdapter = FavoritesAdapter(
+            favoriteProductsList,
+            onClickListener = { favoriteProduct ->
+                // Handle click event here
+            },
+            onDeleteClickListener = { position, favoriteProduct ->
+                deleteFavoriteProduct(position, favoriteProduct)
+            }
+        )
         binding.favorites.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = favoriteAdapter
         }
     }
+
 
     private fun loadFavoriteProducts() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -83,8 +102,10 @@ class Favorites : Fragment() {
                 try {
                     val response = apiService.obtenerFavoritosPorUsuario(idUsuario.toLong())
                     if (response.isSuccessful) {
-                        favoriteProductsList = response.body() ?: emptyList()
+                        val newFavoriteProductsList = response.body()?.toMutableList() ?: mutableListOf()
                         withContext(Dispatchers.Main) {
+                            favoriteProductsList.clear()
+                            favoriteProductsList.addAll(newFavoriteProductsList)
                             favoriteAdapter.updateData(favoriteProductsList)
                         }
                     } else {
@@ -106,6 +127,40 @@ class Favorites : Fragment() {
             }
         }
     }
+
+
+    /*Eliminar*/
+
+    private fun deleteFavoriteProduct(position: Int, favoriteProduct: FavoriteProduct) {
+        val idUsuarioProducto = favoriteProduct.idUsuarioProducto.toInt() // Convertir a Int
+        Log.d("Delete Product", "ID Usuario Producto: $idUsuarioProducto")
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = apiService.removeFromFavorites(idUsuarioProducto)
+                if (response.isSuccessful) {
+                    // Eliminación del servidor exitosa
+                    withContext(Dispatchers.Main) {
+                        // Eliminar localmente del RecyclerView
+                        favoriteAdapter.removeItem(position)
+                        Toast.makeText(requireContext(), "Producto eliminado de favoritos", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        // Handle error here
+                        Log.e("API Error", "Failed to remove favorite product: ${response.message()}")
+                        Toast.makeText(requireContext(), "Error al eliminar el producto favorito", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    // Handle error here
+                    Log.e("API Error", "Failed to remove favorite product: ${e.message}")
+                    Toast.makeText(requireContext(), "Error al eliminar el producto favorito", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
     companion object {
         private const val ARG_PARAM1 = "param1"
