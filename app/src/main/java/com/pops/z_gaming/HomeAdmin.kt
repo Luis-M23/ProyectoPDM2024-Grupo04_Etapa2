@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pops.z_gaming.ActivitiesLogin.Login
+import com.pops.z_gaming.ActivitiesUsers.ProductDetails
 import com.pops.z_gaming.Model.InsertProduct
 import com.pops.z_gaming.databinding.FragmentHomeAdminBinding
 import com.pops.z_gaming.databinding.FragmentHomeBinding
@@ -218,6 +219,13 @@ class HomeAdmin : Fragment() {
 
     private fun onItemSelected(producto: Producto) {
         Toast.makeText(requireContext(), producto.nombreProducto, Toast.LENGTH_SHORT).show()
+
+        //Mostrar los detalles desde un rol de Admin
+        val intent = Intent(requireContext(), ProductDetails::class.java).apply {
+            putExtra("product", producto)
+        }
+
+        startActivity(intent)
     }
 
     companion object {

@@ -1,5 +1,7 @@
 package com.pops.z_gaming
 
+import java.io.Serializable
+
 data class Producto(
     val idProducto: Int,
     val nombreProducto: String,
@@ -9,4 +11,6 @@ data class Producto(
     val imagenProducto: String,
     val isFavorito: Boolean,
     val idCategoria: Int
-)
+):Serializable{
+
+}

@@ -38,11 +38,21 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         tools:context=".DetailsFragment">
 
+        <ImageView
+            android:id="@+id/ivProduct"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="500dp"
+            android:layout_marginStart="110dp"
+            android:scaleType="fitXY"
+            android:src="@color/gray" />
 
         <ImageButton
-            android:id="@+id/roundedButton3"
+            android:id="@+id/btnAddToCar"
             android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="19dp"
@@ -50,11 +60,11 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:background="@drawable/custom_button_b"
             android:contentDescription="buy"
             android:padding="5dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             android:src="@drawable/car_buy" />
 
         <ImageButton
-            android:id="@+id/roundedButton2"
+            android:id="@+id/btnReduceQuantity"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_alignParentEnd="true"
@@ -67,8 +77,22 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:scaleType="fitCenter"
             android:src="@drawable/subtraction" />
 
+        <TextView
+            android:id="@+id/txtQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="185dp"
+            android:layout_marginBottom="455dp"
+            android:contentDescription="mas"
+            android:padding="5dp"
+            android:text="50"
+            android:textSize="20dp"
+            android:scaleType="fitCenter" />
+
         <ImageButton
-            android:id="@+id/roundedButton1"
+            android:id="@+id/btnAddQuantity"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_alignParentEnd="true"
@@ -102,6 +126,60 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_marginBottom="18dp"
             android:text="DISPONIBLIDAD: "
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txtProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="160dp"
+            android:layout_marginBottom="380dp"
+            android:text="$7.99"
+            android:textSize="35dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txtProductTitle"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="300dp"
+            android:text="iphone1 "
+            android:textSize="25dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txtProductDescription"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="false"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="330dp"
+            android:text="iphone1 "
+            android:textSize="20dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txtExistencesProducts"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="160dp"
+            android:layout_marginBottom="15dp"
+            android:text="10 en existencias"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/green" />
 
         <ImageView
             android:id="@+id/imageView9"

@@ -1,6 +1,7 @@
 package com.pops.z_gaming
 import android.util.Log
 import com.pops.z_gaming.AppConstantes.BASE_URL
+import com.pops.z_gaming.Model.FavoriteProduct
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.FavoriteResponse
 import com.pops.z_gaming.Model.InsertProduct
@@ -127,6 +128,11 @@ public interface WebService {
     suspend fun addToFavorites(
         @Body favoriteRequest: FavoriteRequest
     ): Response<FavoriteResponse>
+
+    @GET("/api/favorites/{idUsuario}")
+    suspend fun obtenerFavoritosPorUsuario(
+        @Path("idUsuario") idUsuario: Long
+    ): Response<List<FavoriteProduct>>
 }
 
 //configuración de retrofit
