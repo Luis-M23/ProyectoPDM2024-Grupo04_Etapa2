@@ -136,7 +136,7 @@ public interface WebService {
     ): Response<List<FavoriteProduct>>
 
     //borrar favoritos por ID
-    @DELETE("/api/favorites/{id}")
+    @DELETE("/api/favorite/{id}")
     suspend fun removeFromFavorites(
         @Path("id") id: Int
     ): Response<FavoriteProduct>
