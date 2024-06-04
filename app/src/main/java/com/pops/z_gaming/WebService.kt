@@ -8,6 +8,7 @@ import com.pops.z_gaming.Model.InsertProduct
 import com.pops.z_gaming.Model.UserInsert
 import com.pops.z_gaming.Model.UserInsertResponse
 import com.pops.z_gaming.Model.UserLogin
+import com.pops.z_gaming.Model.UserRolRequest
 import com.pops.z_gaming.Model.UserStateRequest
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.Retrofit.AuthInterceptor
@@ -90,6 +91,12 @@ public interface WebService {
     suspend fun actualizarEstadoDeUsuario(
         @Path("userId") userId: Int,
         @Body() userStateRequest: UserStateRequest
+    ): Response<Usuario>
+
+    @PUT("/api/profile/{userId}")
+    suspend fun actualizarRolDeUsuario(
+        @Path("userId") userId: Int,
+        @Body() userRolRequest: UserRolRequest
     ): Response<Usuario>
 
     //Obtener lista de productos

@@ -11,8 +11,9 @@ class ProductAdapter(
    // private val productsList: List<Producto>,
     private val context: Context,
     private val onClickListener:(Producto)->Unit,
-    private val addOnFavoriteClickListener: (id: Int) -> Unit
-) : RecyclerView.Adapter<ProductViewHolder>() {
+    private val addOnFavoriteClickListener: (id: Int) -> Unit,
+    private val addOnShoppingCartClickListener: (product: Producto) -> Unit)
+    : RecyclerView.Adapter<ProductViewHolder>() {
 
     private var productsList: List<Producto> = listOf()
     private var productsListFull: List<Producto> = listOf()
@@ -27,7 +28,7 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val item=productsList[position]
-        holder.render(item,onClickListener, addOnFavoriteClickListener)
+        holder.render(item,onClickListener, addOnFavoriteClickListener, addOnShoppingCartClickListener )
     }
     fun setProducts(products: List<Producto>) {
         this.productsList = products

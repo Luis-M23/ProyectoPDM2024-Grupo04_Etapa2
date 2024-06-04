@@ -1,10 +1,12 @@
 package com.pops.z_gaming.rv_adapter.product
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.pops.z_gaming.MainActivity
 
 import com.pops.z_gaming.Model.Products
 import com.pops.z_gaming.Producto
@@ -20,7 +22,8 @@ class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(  productModel: Producto,
                  onClickListener: (Producto) -> Unit,
-                 addOnFavoriteClickListener: (id: Int) -> Unit) {
+                 addOnFavoriteClickListener: (id: Int) -> Unit,
+                 addOnShoppingCartClickListener: (Producto) -> Unit) {
         binding.tvModel.text = productModel.nombreProducto
         binding.tvName.text = productModel.descripcion
         binding.tvPrice.text = "$${productModel.precio}"
@@ -45,6 +48,11 @@ class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             } else {
                 Log.e("FAVORITE", "User not logged in")
             }
+        }
+
+        //Ir al carrito de compras
+        binding.deleteButton.setOnClickListener{
+            addOnShoppingCartClickListener(productModel)
         }
     }
 }

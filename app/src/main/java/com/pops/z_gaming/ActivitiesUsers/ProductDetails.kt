@@ -21,6 +21,7 @@ import com.pops.z_gaming.databinding.FragmentPurchaseHistoryBinding
 class ProductDetails : AppCompatActivity() {
     private lateinit var binding: FragmentDetailsBinding
     private var product: Producto? = null
+
     private var quantityToBuy: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,11 +66,15 @@ class ProductDetails : AppCompatActivity() {
             }
         }
 
+        /**
+         * Método para agregar a carrito de compras
+         */
         binding.btnAddToCar.setOnClickListener {
-            Toast.makeText(this, "Agregado a favoritos", Toast.LENGTH_SHORT).show()
+
+            //Retornar al home
+            Toast.makeText(this, "Agregado a carrito de compras", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            TODO("Agregar la lógica para registrarlo en favoritos y que luego retorne a home")
         }
     }
 

@@ -74,10 +74,23 @@ class Home : Fragment() {
 
             requireContext(),
             { producto -> onItemSelected(producto) },
-            { id -> onAddToFavorite(id) }
+            { id -> onAddToFavorite(id) },
+            { product -> onAssShoppingCard(product)}
         )
         binding.rvProduct.layoutManager = LinearLayoutManager(requireContext())
         binding.rvProduct.adapter = adapter
+    }
+
+    private fun onAssShoppingCard(producto: Producto) {
+        Toast.makeText(requireContext(), producto.nombreProducto, Toast.LENGTH_SHORT).show()
+
+        //Mostrar los detalles desde un rol de User
+
+        val intent = Intent(requireContext(), ProductDetails::class.java).apply {
+            putExtra("product", producto)
+        }
+
+        startActivity(intent)
     }
 
     private fun onAddToFavorite(id: Int) {

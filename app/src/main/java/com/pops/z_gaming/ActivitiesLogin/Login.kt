@@ -72,23 +72,32 @@ class Login : AppCompatActivity() {
                     }
 
                     withContext(Dispatchers.Main) {
-                        if (call.isSuccessful && userReturned != null) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Logeado exitosamente",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
 
-                            //Validar si el usuario
-                            if(userReturned.idRol == 1){
-                                val intent = Intent(applicationContext, MainActivity::class.java)
-                                startActivity(intent)
-                            }else{
-                                val intent = Intent(applicationContext, MainActivityAdmin::class.java)
-                                startActivity(intent)
-                            }
+                         if (call.isSuccessful)  {
 
+                             if(!userReturned?.activo!!){
+                                 Toast.makeText(
+                                     applicationContext,
+                                     "Este usuario ha sido desactivado, ingresa otro.",
+                                     Toast.LENGTH_SHORT
+                                 ).show()
+                             }else{
+                                 Toast.makeText(
+                                     applicationContext,
+                                     "Logeado exitosamente",
+                                     Toast.LENGTH_SHORT
+                                 )
+                                     .show()
+
+                                 //Validar si el usuario
+                                 if(userReturned.idRol == 1){
+                                     val intent = Intent(applicationContext, MainActivity::class.java)
+                                     startActivity(intent)
+                                 }else{
+                                     val intent = Intent(applicationContext, MainActivityAdmin::class.java)
+                                     startActivity(intent)
+                                 }
+                             }
                         } else {
                             Toast.makeText(
                                 applicationContext,

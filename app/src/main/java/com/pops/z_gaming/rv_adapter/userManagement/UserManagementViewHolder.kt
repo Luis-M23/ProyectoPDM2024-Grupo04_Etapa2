@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.databinding.UsersItemsBinding
 
-class UserManagementViewHolder(view: View,
-    private val onModifyUserStateClick: (user: Usuario, idUserModifiedOnRecycler: Int) -> Unit) : RecyclerView.ViewHolder(view) {
+class UserManagementViewHolder(
+    view: View,
+    private val onModifyUserStateClick: (user: Usuario, idUserModifiedOnRecycler: Int) -> Unit,
+    private val onModifyUserRolClick: (user: Usuario, idUserModifiedOnRecycler: Int) -> Unit
+) : RecyclerView.ViewHolder(view) {
     private val binding = UsersItemsBinding.bind(view)
 
     fun bind(user: Usuario) {
@@ -21,26 +24,46 @@ class UserManagementViewHolder(view: View,
         //binding.btnRol.setCompoundDrawablesRelativeWithIntrinsicBounds(user.imageResource, 0, 0, 0)
         binding.btnActive.text = user.activo?.let { isUserActiveToText(it) }
 
+        itemView.setOnLongClickListener {
+
+            val userRole = user.idRol
+
+            Log.i("LOGIN_T", "UserManViewholder, rol new userRole: $user")
+
+            if(userRole == 1){
+                user.idRol = 2
+                setRol(2)
+                onModifyUserRolClick(user, bindingAdapterPosition)
+            }else{
+                user.idRol = 1
+                setRol(1)
+                onModifyUserRolClick(user, bindingAdapterPosition)
+            }
+
+            true
+        }
+
         binding.btnActive.setOnClickListener {
             val userActualState = user.activo
 
             Log.i("LOGIN_T", "UserManViewholder, new userState: $user")
 
-            if(userActualState != null){
+            if (userActualState != null) {
                 user.activo = !(userActualState)
                 onModifyUserStateClick(user, bindingAdapterPosition)
             }
         }
 
         // Configurar el color del botón según el rol
-        binding.btnActive.backgroundTintList = if (user.activo!!) ColorStateList.valueOf(Color.parseColor("#7BD8B6")) else
-            ColorStateList.valueOf(Color.parseColor("#F44336"))
+        binding.btnActive.backgroundTintList =
+            if (user.activo!!) ColorStateList.valueOf(Color.parseColor("#7BD8B6")) else
+                ColorStateList.valueOf(Color.parseColor("#F44336"))
     }
 
     private fun setRol(idRol: Int): String {
-        return if(idRol == 1){
+        return if (idRol == 1) {
             "User"
-        }else{
+        } else {
             "Admin"
         }
     }

@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pops.z_gaming.Model.UserInsert
+import com.pops.z_gaming.Model.UserRolRequest
 import com.pops.z_gaming.Model.UserStateRequest
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.databinding.FragmentUserManagementBinding
@@ -63,7 +67,7 @@ class UserManagerAdmin : Fragment() {
         Log.i("LOGIN_T", "USERMANAGEMENT, Antes Initrecycler")
         getAllUsers()
 
-        binding.returnIcon2.setOnClickListener{
+        binding.returnIcon2.setOnClickListener {
             val intent = Intent(requireContext(), MainActivityAdmin::class.java)
             startActivity(intent)
         }
@@ -78,39 +82,133 @@ class UserManagerAdmin : Fragment() {
         rvUserManagement.layoutManager = LinearLayoutManager(requireContext())
 
         userAdapter = UserManagementAdapter(userList,
-            {product, idUserInViewHolder -> updateUserState(product, idUserInViewHolder)})
+            { product, idUserInViewHolder -> updateUserState(product, idUserInViewHolder) },
+            { product, idUserInViewHolder -> updateUserRole(product, idUserInViewHolder) })
         rvUserManagement.adapter = userAdapter
     }
 
-    private fun updateUserState(user: Usuario, idUserInViewHolder: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
+    private fun updateUserRole(user: Usuario, idUserInViewHolder: Int) {
 
-            val newUserState = UserStateRequest(user.activo!!)
-            val call =
-                retrofit.create(WebService::class.java).actualizarEstadoDeUsuario(user.idUsuario, newUserState)
-            val userReturned = call.body()
+        Log.i("LOGIN_T", "ROLE Actualizar un producto con id: ${user.idUsuario}")
+        Log.i("LOGIN_T", "ROLE Actualizar a un recycler con id: $idUserInViewHolder")
 
-            Log.i("LOGIN_T", "EDITUSERSTATE, response: ${userReturned}")
+        val dialogView = layoutInflater.inflate(R.layout.fragment_dialog_delete_product_confirmation, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
 
-            withContext(Dispatchers.Main) {
-                if (call.isSuccessful) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Estado del usuario actualizado satisfactoriamente",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        val messageTextTitle = dialogView.findViewById<TextView>(R.id.dialog_delete_title)
+        messageTextTitle.text = "Modificar rol del usuario"
 
-                    binding.rvUserManagement.adapter?.notifyItemChanged(idUserInViewHolder)
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error al actualizar el estado del usuario ${call.message()}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.i("LOGIN_T", "ADDPRODUCT, ERROr: ${call.message()}")
+        val messageTextView = dialogView.findViewById<TextView>(R.id.dialog_delete_message)
+        messageTextView.text = "¿Seguro de modificar el rol del usuario?"
+
+        val messageButton = dialogView.findViewById<TextView>(R.id.btnConfirmed)
+        messageButton.text = "Aceptar"
+
+        val cancelButton = dialogView.findViewById<Button>(R.id.btn_cancel)
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val confirmedButton = dialogView.findViewById<Button>(R.id.btnConfirmed)
+
+        confirmedButton.setOnClickListener{
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val newUserRol = UserRolRequest(user.idRol)
+
+                Log.i("LOGIN_T", "EDITUSERSROLE, EDITUSERSROLE, id: ${user.idUsuario}, newRol: $newUserRol")
+
+                val call =
+                    retrofit.create(WebService::class.java)
+                        .actualizarRolDeUsuario(user.idUsuario, newUserRol)
+                val userReturned = call.body()
+
+                Log.i("LOGIN_T", "EDITUSERSROLE, response: ${userReturned}")
+
+                withContext(Dispatchers.Main) {
+                    if (call.isSuccessful) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Rol del usuario actualizado satisfactoriamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        binding.rvUserManagement.adapter?.notifyItemChanged(idUserInViewHolder)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al actualizar el rol del usuario ${call.message()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.i("LOGIN_T", "ADDPRODUCT, ERROr: ${call.message()}")
+                    }
                 }
             }
+            dialog.dismiss()
         }
+        dialog.show()
+    }
+
+    private fun updateUserState(user: Usuario, idUserInViewHolder: Int) {
+
+        Log.i("LOGIN_T", "STATE Actualizar un producto con id: ${user.idUsuario}")
+        Log.i("LOGIN_T", "STATE Actualizar a un recycler con id: $idUserInViewHolder")
+
+        val dialogView = layoutInflater.inflate(R.layout.fragment_dialog_delete_product_confirmation, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        val messageTextTitle = dialogView.findViewById<TextView>(R.id.dialog_delete_title)
+        messageTextTitle.text = "Modificar estado del usuario"
+
+        val messageTextView = dialogView.findViewById<TextView>(R.id.dialog_delete_message)
+        messageTextView.text = "¿Seguro de modificar el estado del usuario?"
+
+        val messageButton = dialogView.findViewById<TextView>(R.id.btnConfirmed)
+        messageButton.text = "Aceptar"
+
+        val cancelButton = dialogView.findViewById<Button>(R.id.btn_cancel)
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val confirmedButton = dialogView.findViewById<Button>(R.id.btnConfirmed)
+        confirmedButton.setOnClickListener{
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val newUserState = UserStateRequest(user.activo!!)
+                val call =
+                    retrofit.create(WebService::class.java)
+                        .actualizarEstadoDeUsuario(user.idUsuario, newUserState)
+                val userReturned = call.body()
+
+                Log.i("LOGIN_T", "EDITUSERSTATE, response: ${userReturned}")
+
+                withContext(Dispatchers.Main) {
+                    if (call.isSuccessful) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Estado del usuario actualizado satisfactoriamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        binding.rvUserManagement.adapter?.notifyItemChanged(idUserInViewHolder)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al actualizar el estado del usuario ${call.message()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.i("LOGIN_T", "UPDATEUSERSTATE, ERROr: ${call.message()}")
+                    }
+                }
+            }
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     fun getAllUsers() {
@@ -144,6 +242,7 @@ class UserManagerAdmin : Fragment() {
             }
         }
     }
+
     private fun getUsersByRole(roleId: Int) {
         userList = mutableListOf()
 
@@ -163,7 +262,8 @@ class UserManagerAdmin : Fragment() {
                 }
             } else {
                 requireActivity().runOnUiThread {
-                    Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

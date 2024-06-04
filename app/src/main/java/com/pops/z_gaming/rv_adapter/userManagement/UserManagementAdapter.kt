@@ -8,12 +8,13 @@ import com.pops.z_gaming.R
 import com.pops.z_gaming.Model.Usuario
 
 class UserManagementAdapter (private val userList: List<Usuario>,
-                             private val onModifyUserStateClick: (user: Usuario, idUserModifiedOnRecycler: Int) -> Unit) :
+                             private val onModifyUserStateClick: (user: Usuario, idUserModifiedOnRecycler: Int) -> Unit,
+                             private val onModifyUserRoleClick: (user: Usuario, idUserModifiedOnRecycler: Int) -> Unit) :
     RecyclerView.Adapter<UserManagementViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserManagementViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.users_items, parent, false)
-        return UserManagementViewHolder(view, onModifyUserStateClick)
+        return UserManagementViewHolder(view, onModifyUserStateClick, onModifyUserRoleClick)
     }
 
     override fun onBindViewHolder(holder: UserManagementViewHolder, position: Int) {
