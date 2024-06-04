@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pops.z_gaming.Model.UserInsert
+import com.pops.z_gaming.Model.UserStateRequest
 import com.pops.z_gaming.Model.Usuario
 import com.pops.z_gaming.databinding.FragmentUserManagementBinding
 import com.pops.z_gaming.rv_adapter.userManagement.UserManagementAdapter
@@ -75,8 +77,40 @@ class UserManagerAdmin : Fragment() {
         rvUserManagement = binding.rvUserManagement
         rvUserManagement.layoutManager = LinearLayoutManager(requireContext())
 
-        userAdapter = UserManagementAdapter(userList)
+        userAdapter = UserManagementAdapter(userList,
+            {product, idUserInViewHolder -> updateUserState(product, idUserInViewHolder)})
         rvUserManagement.adapter = userAdapter
+    }
+
+    private fun updateUserState(user: Usuario, idUserInViewHolder: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val newUserState = UserStateRequest(user.activo!!)
+            val call =
+                retrofit.create(WebService::class.java).actualizarEstadoDeUsuario(user.idUsuario, newUserState)
+            val userReturned = call.body()
+
+            Log.i("LOGIN_T", "EDITUSERSTATE, response: ${userReturned}")
+
+            withContext(Dispatchers.Main) {
+                if (call.isSuccessful) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Estado del usuario actualizado satisfactoriamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    binding.rvUserManagement.adapter?.notifyItemChanged(idUserInViewHolder)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error al actualizar el estado del usuario ${call.message()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.i("LOGIN_T", "ADDPRODUCT, ERROr: ${call.message()}")
+                }
+            }
+        }
     }
 
     fun getAllUsers() {
