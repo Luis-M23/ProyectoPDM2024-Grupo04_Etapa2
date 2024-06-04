@@ -25,7 +25,7 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="Administración de usuarios"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -34,46 +34,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/returnIcon2" />
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="350dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="110dp"
-        android:background="@drawable/rounded_edittext2"
-        android:drawableRight="@drawable/search"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="@string/ed_Hint2"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:paddingHorizontal="10dp"
-        android:singleLine="true"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@color/white"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Rol"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/btnAll"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@color/cv_background"
         android:text="Todos"
         android:textSize="12sp"
@@ -88,16 +66,16 @@
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="44dp"
         android:backgroundTint="@color/white"
         android:text="Admin"
+        android:layout_marginTop="57dp"
         android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/btnUser"
         app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toEndOf="@+id/btnAll"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp" />
 
@@ -105,7 +83,6 @@
         android:id="@+id/btnUser"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:layout_marginEnd="28dp"
         android:backgroundTint="@color/white"
         android:text="User"
@@ -113,7 +90,7 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintTop_toTopOf="@+id/btnAdmin"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp" />
 
@@ -125,6 +102,7 @@
         app:dividerColor="@color/gray_components"
         app:layout_constraintBottom_toTopOf="@+id/rvUserManagement"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

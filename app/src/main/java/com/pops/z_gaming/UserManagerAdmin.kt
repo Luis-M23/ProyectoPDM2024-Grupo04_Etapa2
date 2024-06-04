@@ -10,9 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.pops.z_gaming.Model.User
 import com.pops.z_gaming.Model.Usuario
-import com.pops.z_gaming.databinding.FragmentHomeAdminBinding
 import com.pops.z_gaming.databinding.FragmentUserManagementBinding
 import com.pops.z_gaming.rv_adapter.userManagement.UserManagementAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -67,6 +65,9 @@ class UserManagerAdmin : Fragment() {
             val intent = Intent(requireContext(), MainActivityAdmin::class.java)
             startActivity(intent)
         }
+        binding.btnAll.setOnClickListener { getAllUsers() }
+        binding.btnAdmin.setOnClickListener { getUsersByRole(2) }
+        binding.btnUser.setOnClickListener { getUsersByRole(1) }
     }
 
     fun initRecyclerView() {
@@ -106,6 +107,30 @@ class UserManagerAdmin : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT)
                     .show();
+            }
+        }
+    }
+    private fun getUsersByRole(roleId: Int) {
+        userList = mutableListOf()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            retrofit = RetrofitClient.getRetrofit()
+
+            val call = retrofit.create(WebService::class.java).obtenerUsuariosPorRol(roleId)
+            val users = call.body()
+
+            if (call.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    if (users != null) {
+                        userList.clear()
+                        userList.addAll(users)
+                    }
+                    initRecyclerView()
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    Toast.makeText(requireContext(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

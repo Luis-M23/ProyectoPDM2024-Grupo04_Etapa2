@@ -4,7 +4,6 @@ import com.pops.z_gaming.AppConstantes.BASE_URL
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.FavoriteResponse
 import com.pops.z_gaming.Model.InsertProduct
-import com.pops.z_gaming.Model.User
 import com.pops.z_gaming.Model.UserInsert
 import com.pops.z_gaming.Model.UserInsertResponse
 import com.pops.z_gaming.Model.UserLogin
@@ -72,6 +71,11 @@ public interface WebService {
 
     @GET("/api/profiles")
     suspend fun obtenerTodosLosUsuarios(
+    ): Response<List<Usuario>>
+
+    @GET("/api/profiles/rol/{idRol}")
+    suspend fun obtenerUsuariosPorRol(
+        @Path("idRol") idRol: Int
     ): Response<List<Usuario>>
 
     @POST("/api/register")

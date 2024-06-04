@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pops.z_gaming.R
-import com.pops.z_gaming.Model.User
 import com.pops.z_gaming.Model.Usuario
 
 class UserManagementAdapter (private val userList: List<Usuario>) :
