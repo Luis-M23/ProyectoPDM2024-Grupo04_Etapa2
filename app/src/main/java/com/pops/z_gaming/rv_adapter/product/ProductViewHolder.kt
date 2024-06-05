@@ -1,8 +1,10 @@
 package com.pops.z_gaming.rv_adapter.product
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -32,6 +34,7 @@ class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         // Inicializar isFavorito y el icono del botón de favorito
         isFavorito = productModel.isFavorito
+
         binding.editButton.setImageResource(
             if (isFavorito) R.drawable.baseline_favorite_24 else R.drawable.favorite_icon
         )
@@ -40,11 +43,21 @@ class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             if (idUser != null) {
                 val productId = productModel.idProducto
                 Log.i("FAVORITE", "User ID: $idUser, Product ID: $productId")
-                isFavorito = !isFavorito
-                binding.editButton.setImageResource(
-                    if (isFavorito) R.drawable.baseline_favorite_24 else R.drawable.favorite_icon
-                )
-                addOnFavoriteClickListener(productId)
+                //isFavorito = !isFavorito
+
+                //Enviar si al hacer click se quita el favorito o no
+
+                if(isFavorito ){
+                    //Si da click y es favorito, cambia la imagen
+                    //binding.editButton.setImageResource(R.drawable.favorite_icon)
+                    Log.i("LOGIN_T", "Favorito a No favorito (ELIMINANDO)")
+                    Toast.makeText(binding.editButton.context, "Ve a la vista de favoritos para quitarlo.", Toast.LENGTH_SHORT).show()
+                }else{
+                    //si da click y no es favorito pone
+                    binding.editButton.setImageResource( R.drawable.baseline_favorite_24)
+                    Log.i("LOGIN_T", "No fvorito a favorito (AGREGANDO)")
+                    addOnFavoriteClickListener(productId)
+                }
             } else {
                 Log.e("FAVORITE", "User not logged in")
             }

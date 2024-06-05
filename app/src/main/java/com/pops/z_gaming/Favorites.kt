@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pops.z_gaming.Model.FavoriteProduct
 import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
+import com.pops.z_gaming.Model.UpdateIsFavoriteProduct
 import com.pops.z_gaming.databinding.FragmentFavoritesBinding
 import com.pops.z_gaming.rv_adapter.favorites.CarritoAdapter
 import com.pops.z_gaming.rv_adapter.favorites.FavoritesAdapter
@@ -129,21 +130,39 @@ class Favorites : Fragment() {
 
     private fun deleteFavoriteProduct(position: Int, favoriteProduct: FavoriteProduct) {
         val idUsuarioProducto = favoriteProduct.idUsuarioProducto.toInt() // Convertir a Int
+        val idProducto = favoriteProduct.idProducto?.toInt()
         Log.d("Delete Product", "ID Usuario Producto: $idUsuarioProducto")
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = apiService.removeFromFavorites(idUsuarioProducto)
                 if (response.isSuccessful) {
                     // Eliminación del servidor exitosa
+
                     withContext(Dispatchers.Main) {
                         // Eliminar localmente del RecyclerView
                         favoriteAdapter.removeItem(position)
-                        Toast.makeText(
-                            requireContext(),
-                            "Producto eliminado de favoritos",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
+
+
+                    //Actualizar estado del producto
+                    if(idProducto != null){
+                        Log.i("Delete Product", "UPDATING isFavorite for product: ${idProducto}")
+
+                        val response = apiService.actualizarEstadoDeFavoritoProducto(idProducto, UpdateIsFavoriteProduct(false))
+
+                        if(response.isSuccessful){
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Producto eliminado de favoritos",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }else{
+                            Log.i("Delete Product", "Error UPDATE isFavorite: ${response.message()}")
+                        }
+                    }
+
                 } else {
                     withContext(Dispatchers.Main) {
                         // Handle error here
@@ -161,7 +180,7 @@ class Favorites : Fragment() {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     // Handle error here
-                    Log.e("API Error", "Failed to remove favorite product: ${e.message}")
+                    Log.e("API Error", "EXCEPTION Failed to remove favorite product: ${e.message}")
                     Toast.makeText(
                         requireContext(),
                         "Error al eliminar el producto favorito",

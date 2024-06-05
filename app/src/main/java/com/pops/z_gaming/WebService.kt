@@ -5,6 +5,7 @@ import com.pops.z_gaming.Model.FavoriteProduct
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.FavoriteResponse
 import com.pops.z_gaming.Model.InsertProduct
+import com.pops.z_gaming.Model.UpdateIsFavoriteProduct
 import com.pops.z_gaming.Model.UserInsert
 import com.pops.z_gaming.Model.UserInsertResponse
 import com.pops.z_gaming.Model.UserLogin
@@ -126,6 +127,13 @@ public interface WebService {
     suspend fun actualizarProducto(
         @Path("idProducto") idProducto: Int,
         @Body producto: InsertProduct
+    ): Response<Producto>
+
+    //Actualizar status de producto
+    @PUT("/api/product/{idProducto}")
+    suspend fun actualizarEstadoDeFavoritoProducto(
+        @Path("idProducto") idProducto: Int,
+        @Body updateIsFavorite: UpdateIsFavoriteProduct
     ): Response<Producto>
 
     //Obtener productos favoritos
