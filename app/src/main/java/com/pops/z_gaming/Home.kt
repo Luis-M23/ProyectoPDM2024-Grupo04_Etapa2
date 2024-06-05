@@ -17,6 +17,7 @@ import com.pops.z_gaming.ActivitiesUsers.ProductDetails
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
+import com.pops.z_gaming.Model.UpdateIsFavoriteProduct
 import com.pops.z_gaming.databinding.FragmentHomeBinding
 import com.pops.z_gaming.rv_adapter.product.ProductAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -110,8 +111,20 @@ class Home : Fragment() {
                     val response = webService.addToFavorites(favoriteRequest)
                     if (response.isSuccessful) {
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Producto Agregado a favoritos",
+                                Toast.LENGTH_SHORT
+                            ).show()                        }
+
+                        val response = webService.actualizarEstadoDeFavoritoProducto(id, UpdateIsFavoriteProduct(true))
+
+                        if(response.isSuccessful){
+                            Log.i("Estas en favorito", "MODIFICADO isFavorite: ${response}")
+                        }else{
+                            Log.i("Estas en favorito", "Error INSERT isFavorite: ${response.message()}")
                         }
+
                     } else {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(requireContext(), "Failed to add to favorites", Toast.LENGTH_SHORT).show()
