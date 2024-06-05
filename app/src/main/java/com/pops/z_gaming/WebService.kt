@@ -5,6 +5,7 @@ import com.pops.z_gaming.Model.FavoriteProduct
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.FavoriteResponse
 import com.pops.z_gaming.Model.InsertProduct
+import com.pops.z_gaming.Model.UpdateIsAddedInCartProduct
 import com.pops.z_gaming.Model.UpdateIsFavoriteProduct
 import com.pops.z_gaming.Model.UserInsert
 import com.pops.z_gaming.Model.UserInsertResponse
@@ -136,6 +137,11 @@ public interface WebService {
         @Body updateIsFavorite: UpdateIsFavoriteProduct
     ): Response<Producto>
 
+    @PUT("/api/product/{idProducto}")
+    suspend fun actualizarEstadoDeCartProducto(
+        @Path("idProducto") idProducto: Int,
+        @Body updateIsAddedInCart: UpdateIsAddedInCartProduct
+    ): Response<Producto>
     //Obtener productos favoritos
     @GET("/productos/favoritos")
     suspend fun obtenerProductosFavoritos(): Response<List<Producto>>
@@ -152,8 +158,17 @@ public interface WebService {
         @Body favoriteRequest: FavoriteRequest
     ): Response<FavoriteResponse>
 
+    @POST("/api/cart-items")
+    suspend fun addToCart(
+        @Body favoriteRequest: FavoriteRequest
+    ): Response<FavoriteResponse>
     @GET("/api/favorites/{idUsuario}")
     suspend fun obtenerFavoritosPorUsuario(
+        @Path("idUsuario") idUsuario: Long
+    ): Response<List<FavoriteProduct>>
+
+    @GET("/api/cart-items/{idUsuario}")
+    suspend fun obtenerShoppingCartItems(
         @Path("idUsuario") idUsuario: Long
     ): Response<List<FavoriteProduct>>
 

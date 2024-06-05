@@ -12,11 +12,19 @@ import com.pops.z_gaming.AddProduct
 import com.pops.z_gaming.Home
 import com.pops.z_gaming.MainActivity
 import com.pops.z_gaming.MainActivityAdmin
+import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.InsertProduct
+import com.pops.z_gaming.Model.UpdateIsAddedInCartProduct
 import com.pops.z_gaming.Producto
+import com.pops.z_gaming.RetrofitClient
 import com.pops.z_gaming.SessionManager
+import com.pops.z_gaming.WebService
 import com.pops.z_gaming.databinding.FragmentDetailsBinding
 import com.pops.z_gaming.databinding.FragmentPurchaseHistoryBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProductDetails : AppCompatActivity() {
     private lateinit var binding: FragmentDetailsBinding

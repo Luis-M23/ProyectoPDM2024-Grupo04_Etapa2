@@ -17,6 +17,7 @@ import com.pops.z_gaming.ActivitiesUsers.ProductDetails
 import com.pops.z_gaming.Model.FavoriteRequest
 import com.pops.z_gaming.Model.ProductProvider
 import com.pops.z_gaming.Model.Products
+import com.pops.z_gaming.Model.UpdateIsAddedInCartProduct
 import com.pops.z_gaming.Model.UpdateIsFavoriteProduct
 import com.pops.z_gaming.databinding.FragmentHomeBinding
 import com.pops.z_gaming.rv_adapter.product.ProductAdapter
@@ -128,6 +129,53 @@ class Home : Fragment() {
                     } else {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(requireContext(), "Failed to add to favorites", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun onAddToCart(id: Int) {
+        Log.i("Estas en shopping items", "mensaje")
+
+        val user = SessionManager.getUser()
+        if (user != null) {
+            val favoriteRequest = FavoriteRequest(idUsuario = user.idUsuario, idProducto = id, idUsuarioProducto = id)
+
+            // Usamos Retrofit para hacer la llamada a la API
+            val retrofit = RetrofitClient.getRetrofit()
+            val webService = retrofit.create(WebService::class.java)
+
+            // Realizamos la llamada en un CoroutineScope para manejo de corrutinas
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = webService.addToCart(favoriteRequest)
+                    if (response.isSuccessful) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Producto Agregado a shopping cart items",
+                                Toast.LENGTH_SHORT
+                            ).show()                        }
+
+                        val response = webService.actualizarEstadoDeCartProducto(id, UpdateIsAddedInCartProduct(true))
+
+                        if(response.isSuccessful){
+                            Log.i("Estas en shopping cart", "MODIFICADO isAddedInCart: ${response}")
+                        }else{
+                            Log.i("Estas en shopping cart", "Error INSERT isAddedInCart: ${response.message()}")
+                        }
+
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Failed to add to shopping cart", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } catch (e: Exception) {
